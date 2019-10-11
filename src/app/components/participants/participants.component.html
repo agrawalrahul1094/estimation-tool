@@ -1,0 +1,74 @@
+  <div class="col-md-12">
+    <h2>Hosting Strategy</h2>
+    <mat-card>
+      <div class="row">
+        <div class="col-md-2">
+          <span>User Type</span>
+        </div>
+        <div class="col-md-10">
+          <button class="btnSelect" type="button" mat-button *ngFor="let user of userList"
+                  [ngClass]="userTab === user.name ? 'pulseTab' : '' " (click)="userType(user.name)">{{user.name}}</button>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-5 userType">
+          <mat-label>Numbers of Teams</mat-label>
+          <br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Min</label>
+                <mat-form-field class="no-line">
+                  <input matInput type="number">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 pull-left">
+              <div class="form-group">
+                <label>Max</label>
+                <mat-form-field class="no-line">
+                  <input matInput type="number">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 userType">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Participants per Team</label>
+                <mat-form-field class="no-line">
+                  <input matInput type="number">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 pull-left">
+              <div class="form-group">
+                <label>Followers per Teams</label>
+                <mat-form-field class="no-line">
+                  <input matInput type="number">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-2">
+          <span>User Roles</span>
+        </div>
+        <div class="col-md-10">
+          <button class="btnSelect" type="button" mat-button *ngFor="let user of userRoleList"
+                  [ngClass]="checkUserRole(user.name) ? 'pulseTab' : '' " (click)="userRoleListType(user.name)">{{user.name}}</button>
+        </div>
+      </div>
+
+    </mat-card>
+  </div>
+  <div class="pull-right">
+    <button mat-raised-button color="primary" class="save" type="submit">SAVE & PROCEED</button>
+  </div>

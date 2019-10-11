@@ -1,0 +1,88 @@
+<div class="col-md-12">
+  <h2>Basic Information</h2>
+  <mat-card>
+    <div>
+
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-md-2">
+          <span>Select Product</span>
+        </div>
+        <div class="col-md-10">
+          <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
+            <mat-tab label="Pulse">
+              <button class="btnSelect" mat-button *ngFor="let t1 of tab1" [ngClass]="product === t1 ? 'pulseTab' : '' " (click)="currentTab(t1)">{{t1}}</button>
+            </mat-tab>
+            <mat-tab label="Isomer">
+              <button class="btnSelect" mat-button *ngFor="let t2 of tab2" [ngClass]="product === t2 ? 'pulseTab' : '' " (click)="currentTab(t2)">{{t2}}</button>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-2">
+          <span>Select Language</span>
+        </div>
+        <div class="col-md-10">
+          <mat-tab-group #tabGroup1 (selectedTabChange)="tabChangedLanguage($event)">
+            <mat-tab label="English Only"></mat-tab>
+            <mat-tab label="Multilingual">
+              <mat-select class="full-width" multiple
+                          [(ngModel)]="selectedLang"
+                          name="selectedLang">
+                <mat-option *ngFor="let user of languageList; let i = index" class="multiple-field-box" [value]="user">
+                  {{ user.lang }}
+                </mat-option>
+              </mat-select>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-2">
+          <span>Dates</span>
+        </div>
+        <div class="col-md-3">
+          <span>Client Review Date</span>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" [formControl]="clientDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <span>Pilot Date</span>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker1" [formControl]="pilotDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <span>Launch Date</span>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker2" [formControl]="launchDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span>Navigation</span>
+        </div>
+        <div class="col-md-10">
+          <button class="btnSelect" mat-button *ngFor="let nav of navigation" [ngClass]="navTab === nav.name ? 'pulseTab' : '' " (click)="navigationTab(nav)">{{nav.name}}</button>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+  </mat-card>
+</div>
+<div class="pull-right">
+  <button mat-raised-button color="primary" class="save" (click)="save()">SAVE & PROCEED</button>
+</div>

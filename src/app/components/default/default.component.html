@@ -1,0 +1,27 @@
+<div class="side-dots">
+  <div class="col-xs-12 text-right">
+    {{commonService.stage}}
+    <span data-page="page2" (click)="moveScroll('1')" class="slide-title" [ngClass]="commonService.stage === 1 ? 'green' : 'grey'"><span class="slide-point" >Basic Information</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot2" data-slide="2"></span></span></span>
+    <span data-page="page3" (click)="moveScroll('2')" class="slide-title" [ngClass]="commonService.stage === 2 ? 'green' : 'grey'"><span class="slide-point">Hosting Strategy</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot3" data-slide="3"></span></span></span>
+    <span data-page="page4" (click)="moveScroll('3')" class="slide-title" [ngClass]="commonService.stage === 3 ? 'green' : 'grey'"><span class="slide-point">Participants</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
+    <!--    <span data-page="page5" class="slide-title"><span class="slide-point">Data</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot5" data-slide="5"></span></span></span>-->
+    <!--    <span data-page="page6" class="slide-title"><span class="slide-point">Admin &amp; Other Features</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot6" data-slide="6"></span></span></span>-->
+    <!--    <span data-page="page7" class="slide-title"><span class="slide-point">Done </span><span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot7" data-slide="7"></span></span></span>-->
+  </div>
+</div>
+
+<div *ngIf="getData">
+  <app-basic-info (nextStep)="nextStep($event)" id="1"></app-basic-info>
+  <div *ngIf="commonService.stage >= 2">
+    <div style="height: 400px; position: relative;"></div>
+    <app-hosting-strategy (nextStep)="nextStep($event)" id="2"></app-hosting-strategy>
+    <div style="height: 100px"></div>
+  </div>
+  <div *ngIf="commonService.stage >= 3">
+    <div style="height: 400px; position: relative;"></div>
+    <app-participants (nextStep)="nextStep($event)" id="3"></app-participants>
+    <div style="height: 100px"></div>
+  </div>
+</div>
+
+
