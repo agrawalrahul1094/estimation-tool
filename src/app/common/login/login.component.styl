@@ -1,29 +1,46 @@
 @import '../../../common.styl';
 
-.loginForm
-  position relative
-  height 100%
-  padding-top 26vh
-  left 126%
-  max-width 52%
-.loginIcon
-  position fixed
-  height 100%
-.loginImg
-  height 61%
-  margin-top 18%
-  margin-left 29%
-.mat-mini-fab
-  height 40px
-  width 40px
-.icons
+.login-wrapper
+  height 100vh
+  display flex
+  align-items center
+  justify-content center
+  .login-container
+    flex-grow 1
+    padding 15px
+    .logo-container, .input-wrapper
+      align-self center
+      padding 15px
+    .input-container
+      color white
+      .header
+        text-align center
+        margin-bottom 1rem
+
+@media screen and (max-width: 767px)
+  .login-wrapper
+    align-items flex-start
+  .logo-container
+    display flex
+    justify-content center
+    // margin-top -120px
+    .logo
+      width 50%
+      height auto
+form
+  .icons
     float right
-.material-icons
-    font-size 40px
-    margin-top -8px
-h2, label, span
-  color white
-span
-  margin-right 13px
+    span
+      margin-right 13px
+    .mat-mini-fab
+      height 40px
+      width 40px
+    .material-icons
+      font-size 40px
+      margin-top -8px
+  .check-icon
+    color #70b603
+    margin 0 5px
 ::ng-deep .no-line .mat-form-field-wrapper .mat-form-field-flex
-    background-color white
+  background-color white
+  color black
