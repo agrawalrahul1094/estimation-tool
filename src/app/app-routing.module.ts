@@ -8,6 +8,8 @@ import {BasicInfoComponent} from './components/basic-info/basic-info.component';
 import {DefaultComponent} from './components/default/default.component';
 import {HostingStrategyComponent} from './components/hosting-strategy/hosting-strategy.component';
 import {ParticipantsComponent} from './components/participants/participants.component';
+import {DesignComponent} from './components/design/design.component';
+import {ContentComponent} from './components/content/content.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -25,7 +27,9 @@ const routes: Routes = [
     HeaderComponent,
     DefaultComponent,
     HostingStrategyComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    DesignComponent,
+    ContentComponent
   ],
   exports: [RouterModule, HeaderComponent]
 })

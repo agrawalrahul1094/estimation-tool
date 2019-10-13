@@ -18,7 +18,6 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
 
   devTab = '';
   deployement = [
-    'LMS',
     'Cloud',
     'Scorm + LMS',
     'Qkit',
@@ -50,6 +49,7 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
       (<FormArray> this.treasuryForm.get('treasuryItems')).push(
         new FormGroup({
           date: new FormControl('', Validators.required),
+          cityName: new FormControl('', Validators.required),
         })
       );
     }
@@ -65,6 +65,7 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
         (<FormArray> this.treasuryForm.get('treasuryItems')).push(
           new FormGroup({
             date: new FormControl(contentData.content.hostingStrategy.signInDate[i].date, Validators.required),
+            cityName: new FormControl(contentData.content.hostingStrategy.signInDate[i].cityName, Validators.required),
           })
         );
       }
@@ -118,6 +119,10 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
     if (contentData.content.basicInfo) {
       basicInfo = contentData.content.basicInfo;
     }
+    let participant = {};
+    if (contentData.content && contentData.content.participant !== undefined) {
+      participant = contentData.content.participant;
+    }
     const formdata = {
       createRequestID: localStorage.getItem('_id'),
       content: {}
@@ -125,7 +130,8 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
 
     formdata.content = {
       basicInfo,
-      hostingStrategy
+      hostingStrategy,
+      participant
     };
 
     this.spinner.show();
@@ -136,7 +142,6 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
         this.http.getApi('content/' + localStorage.getItem('_id')).subscribe(data => {
           const ret: any = data;
           this.commonService.contentObject = ret.message;
-          console.log(this.commonService.contentObject)
           this.nextStepFun();
         });
       } else {

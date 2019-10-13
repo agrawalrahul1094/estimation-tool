@@ -1,0 +1,77 @@
+<div class="col-md-12">
+  <h2>Content</h2>
+  <mat-card>
+    <div>
+      <div class="row">
+        <div class="col-md-2">
+          <span>Story Board</span>
+        </div>
+        <div class="col-md-5">
+          <div class="row">
+            <div class="fileTag">
+              <input class="file" type='file' (change)="onSelectFile($event)" multiple>
+              <i class="material-icons">
+                add_circle
+              </i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span>Content Support</span>
+        </div>
+        <div class="col-md-10">
+          <button class="btnSelect" mat-button *ngFor="let t1 of supportList" [ngClass]="suppportTab === t1.name ? 'pulseTab' : '' " (click)="supportTabFun(t1)">{{t1.name}}</button>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-10" [ngClass]="trans ? 'disabled' : ''">
+          <div class="row">
+            <div class="col-md-2">
+              <span>Translation</span>
+            </div>
+            <div class="col-md-10">
+              <button class="btnSelect" mat-button *ngFor="let t1 of translationList" [ngClass]="translationTab === t1.name ? 'pulseTab' : '' " (click)="translationTabFun(t1)">{{t1.name}}</button>
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="fileTag">
+                    <input class="file" type='file' (change)="onSelectFile($event)" multiple>
+                    <i class="material-icons plusIcon">
+                      add_circle
+                    </i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2" *ngIf="trans">
+          You didn't opt for
+          multilingual support
+        </div>
+<!--        <div class="col-md-10">-->
+<!--          <button class="btnSelect" mat-button *ngFor="let t1 of translationList" [ngClass]="translationTab === t1.name ? 'pulseTab' : '' " (click)="translationTabFun(t1)">{{t1.name}}</button>-->
+<!--          <div class="row">-->
+<!--            <div class="col-md-5">-->
+<!--              <div class="fileTag">-->
+<!--                <input class="file" type='file' (change)="onSelectFile($event)" multiple>-->
+<!--                <i class="material-icons plusIcon">-->
+<!--                  add_circle-->
+<!--                </i>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+
+    </div>
+  </mat-card>
+</div>
+<div class="pull-right">
+  <button mat-raised-button color="primary" class="save" (click)="save()">SAVE & PROCEED</button>
+</div>

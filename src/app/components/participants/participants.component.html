@@ -1,5 +1,5 @@
   <div class="col-md-12">
-    <h2>Hosting Strategy</h2>
+    <h2>Participants</h2>
     <mat-card>
       <div class="row">
         <div class="col-md-2">
@@ -21,7 +21,7 @@
               <div class="form-group">
                 <label>Min</label>
                 <mat-form-field class="no-line">
-                  <input matInput type="number">
+                  <input matInput type="number" [formControl]="minVal">
                 </mat-form-field>
               </div>
             </div>
@@ -29,19 +29,19 @@
               <div class="form-group">
                 <label>Max</label>
                 <mat-form-field class="no-line">
-                  <input matInput type="number">
+                  <input matInput type="number" [formControl]="maxVal">
                 </mat-form-field>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-5 userType">
+        <div class="col-md-5 userType" *ngIf="Individual">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Participants per Team</label>
                 <mat-form-field class="no-line">
-                  <input matInput type="number">
+                  <input matInput type="number" [formControl]="participateTeam">
                 </mat-form-field>
               </div>
             </div>
@@ -49,7 +49,7 @@
               <div class="form-group">
                 <label>Followers per Teams</label>
                 <mat-form-field class="no-line">
-                  <input matInput type="number">
+                  <input matInput type="number" [formControl]="followersTeam">
                 </mat-form-field>
               </div>
             </div>
@@ -70,5 +70,5 @@
     </mat-card>
   </div>
   <div class="pull-right">
-    <button mat-raised-button color="primary" class="save" type="submit">SAVE & PROCEED</button>
+    <button mat-raised-button color="primary" class="save" (click)="save()">SAVE & PROCEED</button>
   </div>

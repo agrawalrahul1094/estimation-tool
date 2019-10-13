@@ -159,13 +159,18 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
     if (contentData.content && contentData.content.hostingStrategy !== undefined) {
       hostingStrategy = contentData.content.hostingStrategy;
     }
+    let participant = {};
+    if (contentData.content && contentData.content.participant !== undefined) {
+      participant = contentData.content.participant;
+    }
     const formdata = {
       createRequestID: localStorage.getItem('_id'),
       content: {}
     };
     formdata.content = {
       basicInfo,
-      hostingStrategy
+      hostingStrategy,
+      participant
     }
     this.spinner.show();
     this.http.postApi('content', formdata).subscribe(res => {

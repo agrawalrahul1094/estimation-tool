@@ -19,19 +19,24 @@
         </div>
         <div class="col-md-10">
           <div formArrayName="treasuryItems">
-            <div class="row">
-              <div class="col-md-2" *ngFor="let orderItem of getControls(); let i = index" [formGroupName]="i">
+            <div class="row" *ngFor="let orderItem of getControls(); let i = index" [formGroupName]="i">
+              <div class="col-md-2">
                 <mat-form-field>
                   <input matInput [matDatepicker]="picker" formControlName="date" >
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                <button (click)="remove(i)" color="primary" mat-raised-button type="button" >Remove</button>
               </div>
               <div class="col-md-2">
-                <button (click)="onAddItem()" color="primary" mat-raised-button type="button" >Add new</button>
+                  <mat-form-field class="no-line">
+                      <input matInput formControlName="cityName" required placeholder="Enter City Name">
+                  </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <button (click)="remove(i)" color="primary" mat-raised-button type="button" >Remove</button>
               </div>
             </div>
+            <button (click)="onAddItem()" color="primary" mat-raised-button type="button" >Add new</button>
           </div>
         </div>
       </div>

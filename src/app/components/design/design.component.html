@@ -1,0 +1,97 @@
+<div class="col-md-12">
+  <h2>Design</h2>
+  <mat-card>
+    <div>
+      <div class="row">
+        <div class="col-md-2">
+          <span>Branding</span>
+        </div>
+        <div class="col-md-10" style="height: 217px;">
+          <button class="btnSelect" mat-button *ngFor="let t1 of brandingList" [ngClass]="brandingTab === t1.name ? 'pulseTab' : '' " (click)="brandingTabFun(t1)">{{t1.name}}</button>
+          <div class="row" *ngIf="!(brandingTab === 'Client Branding - Custom')">
+            <p class="brandingLbl" *ngIf="brandingTab === 'Default BTS Branding'">Solution will we developed with default BTS branding. Client logo can be implemented on request.</p>
+            <p class="brandingLbl" *ngIf="brandingTab === 'Client Branding - Basic'">Solution will we developed with basic elements from client branding. (Logo, Colors, background image, font)</p>
+          </div>
+          <div class="row" *ngIf="brandingTab === 'Client Branding - Custom'">
+              <div class="col-md-8">
+                <div class="row">
+                  <p class="brandingLbl">Solution will we developed with all possible aspects of client branding. Provide branding details</p>
+                  <p><i>(Link and sign-in details to brand portal, Upload files, other inputs if any)</i></p>
+                  <mat-form-field class="no-line">
+                    <textarea matInput placeholder="Enter others Details Here" [formControl]="clientBrancdCustom" rows="3"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            <div class="col-md-4">
+              <div class="row fileContainer">
+                <div class="fileTag">
+                  <input class="file" type='file' (change)="onSelectFile($event)" multiple>
+                  <i class="material-icons">
+                    add_circle
+                  </i>
+                </div>
+                <div class="fileSelect">
+                  File Name
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span>Prototype</span>
+        </div>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-4">
+              <button class="btnSelect" mat-button *ngFor="let t1 of prototypeList" [ngClass]="prototypeTab === t1.name ? 'pulseTab' : '' " (click)="protoTypeTabFun(t1)">{{t1.name}}</button>
+            </div>
+            <div class="col-md-8">
+              <mat-form-field class="no-line">
+                <textarea matInput placeholder="Enter additional requirement Here" [formControl]="prototypeAdditional" rows="2"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+         </div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span>Device Support</span>
+        </div>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-8">
+              <button class="btnSelect" mat-button *ngFor="let t1 of deviceList" [ngClass]="deviceTab === t1.name ? 'pulseTab' : '' " (click)="deviceTabFun(t1)">{{t1.name}}</button>
+            </div>
+            <div class="col-md-3 specificDevice">
+              <mat-form-field class="no-line">
+                <input matInput placeholder="Specific Device">
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span>Browser Support</span>
+        </div>
+        <div class="col-md-10">
+          <button class="btnSelect" type="button" mat-button *ngFor="let brow of browserList"
+                  [ngClass]="brow.checked ? 'pulseTab' : '' " (click)="checkBrowserListType(brow)">{{brow.name}}</button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
+<div class="pull-right">
+  <button mat-raised-button color="primary" class="save" (click)="save()">SAVE & PROCEED</button>
+</div>

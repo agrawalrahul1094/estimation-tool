@@ -9,7 +9,7 @@ import {AuthService} from './auth-service.service';
 })
 export class CommonService {
   loginSubject = new Subject<any>();
-  contentObject = {};
+  public contentObject = {};
   stage = 1;
 
   qaTime = 0;
