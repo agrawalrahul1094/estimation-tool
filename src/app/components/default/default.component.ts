@@ -30,6 +30,10 @@ export class DefaultComponent implements OnInit {
     }
   }
 
+  setActiveStage(stage) {
+    this.commonService.stageActive = stage;
+  }
+
   nextStep(e) {
     this.commonService.stage = Number(e);
     setTimeout(() => {

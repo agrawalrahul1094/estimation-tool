@@ -1,11 +1,20 @@
-.side-dots {
-  position: fixed;
-  right: 10px;
-  top: 39%;
-  width: 17%;
-  font-size: 13px;
-  color: white;
-}
+// .side-dots {
+//   position: fixed;
+//   right: 10px;
+//   top: 39%;
+//   width: 17%;
+//   font-size: 13px;
+//   color: white;
+// }
+
+.wrapper
+  height 100%
+  display flex
+  .content-container
+    height 91%
+  .navigation-container
+      display flex
+      align-items center
 
 .slide-title {
   width: 100%;
@@ -54,3 +63,17 @@
   background: #cdd0d4;
   margin-right: 1px;
 }
+
+.nav-menu-collapsed
+  display none
+
+@media screen and (max-width:767px)
+  .nav-menu
+    display none
+  .nav-menu-collapsed
+    display block
+  .wrapper
+    position relative
+    .navigation-container
+      position absolute
+      justify-content flex-end

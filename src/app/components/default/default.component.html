@@ -1,48 +1,42 @@
-<div class="side-dots">
-  <div class="col-xs-12 text-right">
-    {{commonService.stage}}
-    <span data-page="page2" (click)="moveScroll('1')" class="slide-title" [ngClass]="commonService.stage === 1 ? 'green' : 'grey'"><span class="slide-point" >Basic Information</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot2" data-slide="2"></span></span></span>
-    <span data-page="page3" (click)="moveScroll('2')" class="slide-title" [ngClass]="commonService.stage === 2 ? 'green' : 'grey'"><span class="slide-point">Hosting Strategy</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot3" data-slide="3"></span></span></span>
-    <span data-page="page4" (click)="moveScroll('3')" class="slide-title" [ngClass]="commonService.stage === 3 ? 'green' : 'grey'"><span class="slide-point">Participants</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
-    <span data-page="page4" (click)="moveScroll('4')" class="slide-title" [ngClass]="commonService.stage === 4 ? 'green' : 'grey'"><span class="slide-point">Design</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
-    <span data-page="page4" (click)="moveScroll('5')" class="slide-title" [ngClass]="commonService.stage === 4 ? 'green' : 'grey'"><span class="slide-point">Structure</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
-    <span data-page="page4" (click)="moveScroll('6')" class="slide-title" [ngClass]="commonService.stage === 4 ? 'green' : 'grey'"><span class="slide-point">Content</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
-    <span data-page="page4" (click)="moveScroll('7')" class="slide-title" [ngClass]="commonService.stage === 4 ? 'green' : 'grey'"><span class="slide-point">Score</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
-
+<div *ngIf="getData" class="wrapper row">
+  <div [ngSwitch]="commonService.stageActive" class="content-container col-xl-10 col-lg-9 col-md-9 col-sm-12">
+    <app-basic-info *ngSwitchCase="1" (nextStep)="nextStep($event)" id="1"></app-basic-info>
+    <app-hosting-strategy *ngSwitchCase="2" (nextStep)="nextStep($event)" id="2"></app-hosting-strategy>
+    <app-participants *ngSwitchCase="3" (nextStep)="nextStep($event)" id="3"></app-participants>
+    <app-design *ngSwitchCase="4" (nextStep)="nextStep($event)" id="4"></app-design>
+    <app-structure *ngSwitchCase="5" (nextStep)="nextStep($event)" id="5"></app-structure>
+    <app-content *ngSwitchCase="6" (nextStep)="nextStep($event)" id="6"></app-content>
+    <app-score *ngSwitchCase="7" (nextStep)="nextStep($event)" id="7"></app-score>
+    <app-basic-info *ngSwitchDefault (nextStep)="nextStep($event)" id="1"></app-basic-info>
   </div>
+  <div class="navigation-container col-xl-2 col-lg-3 col-md-3 col-sm-12">
+    <!-- <div class="time-container col-sm-12">
+      {{commonService.totTime}}
+    </div> -->
+    <div class="nav-menu">
+      <ng-container *ngTemplateOutlet="navMenu"></ng-container>
+    </div>
+    <div class="nav-menu-collapsed">
+      <button mat-mini-fab #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
+        <i class="material-icons">{{menuTrigger.menuOpen ? 'close' : 'menu'}}</i>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <ng-container *ngTemplateOutlet="navMenu"></ng-container>
+      </mat-menu>
+    </div>
+  </div>
+
 </div>
 
-<div *ngIf="getData">
-  <app-basic-info (nextStep)="nextStep($event)" id="1"></app-basic-info>
-  <div *ngIf="commonService.stage >= 2">
-    <div style="height: 400px; position: relative;"></div>
-    <app-hosting-strategy (nextStep)="nextStep($event)" id="2"></app-hosting-strategy>
-    <div style="height: 100px"></div>
+<ng-template #navMenu>
+  <div class="side-dots">
+    <div class="col-xs-12 text-right">
+      <!-- {{commonService.stage}} -->
+      <span data-page="page2" (click)="setActiveStage(i+1)" class="slide-title"
+        [ngClass]="commonService.stageActive === i+1 ? 'green' : 'grey'"
+        *ngFor="let navItem of commonService.stageName; let i=index;"><span class="slide-point">{{navItem}}</span>
+        <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot2"
+            data-slide="2"></span></span></span>
+    </div>
   </div>
-  <div *ngIf="commonService.stage >= 3">
-    <div style="height: 400px; position: relative;"></div>
-    <app-participants (nextStep)="nextStep($event)" id="3"></app-participants>
-    <div style="height: 100px"></div>
-  </div>
-  <div *ngIf="commonService.stage >= 4">
-    <div style="height: 400px; position: relative;"></div>
-    <app-design (nextStep)="nextStep($event)" id="4"></app-design>
-    <div style="height: 100px"></div>
-  </div>
-  <div *ngIf="commonService.stage >= 5">
-    <div style="height: 400px; position: relative;"></div>
-    <app-structure (nextStep)="nextStep($event)" id="5"></app-structure>
-    <div style="height: 100px"></div>
-  </div>
-  <div *ngIf="commonService.stage >= 6">
-    <div style="height: 400px; position: relative;"></div>
-    <app-content (nextStep)="nextStep($event)" id="6"></app-content>
-    <div style="height: 100px"></div>
-  </div>
-  <div *ngIf="commonService.stage >= 7">
-    <div style="height: 400px; position: relative;"></div>
-    <app-score (nextStep)="nextStep($event)" id="7"></app-score>
-    <div style="height: 100px"></div>
-  </div>
-</div>
-<!--<app-basic-info (nextStep)="nextStep($event)" id="5"></app-basic-info>-->
+</ng-template>

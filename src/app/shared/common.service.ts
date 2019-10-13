@@ -11,6 +11,18 @@ export class CommonService {
   loginSubject = new Subject<any>();
   public contentObject = {};
   stage = 1;
+  stageAvailable = 1;
+  stageActive = 1;
+
+  stageName = [
+    'Basic Information',
+    'Hosting Strategy',
+    'Participants',
+    'Design',
+    'Structure',
+    'Content',
+    'Score'
+  ];
 
   qaTime = 0;
   pmTime = 0;
