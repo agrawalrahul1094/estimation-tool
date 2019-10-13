@@ -9,25 +9,26 @@
   </div>
 </div>
 
-<!--<div *ngIf="getData">-->
-<!--  <app-basic-info (nextStep)="nextStep($event)" id="1"></app-basic-info>-->
-<!--  <div *ngIf="commonService.stage >= 2">-->
-<!--    <div style="height: 400px; position: relative;"></div>-->
-<!--    <app-hosting-strategy (nextStep)="nextStep($event)" id="2"></app-hosting-strategy>-->
-<!--    <div style="height: 100px"></div>-->
-<!--  </div>-->
-<!--  <div *ngIf="commonService.stage >= 3">-->
-<!--    <div style="height: 400px; position: relative;"></div>-->
-<!--    <app-participants (nextStep)="nextStep($event)" id="3"></app-participants>-->
-<!--    <div style="height: 100px"></div>-->
-<!--  </div>-->
-<!--  <div *ngIf="commonService.stage >= 4">-->
-<!--    <div style="height: 400px; position: relative;"></div>-->
-<!--    <app-design (nextStep)="nextStep($event)" id="4"></app-design>-->
-<!--    <div style="height: 100px"></div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
-<app-design></app-design>
-<!--<app-content></app-content>-->
+<div *ngIf="getData">
+  <app-basic-info (nextStep)="nextStep($event)" id="1"></app-basic-info>
+  <div *ngIf="commonService.stage >= 2">
+    <div style="height: 400px; position: relative;"></div>
+    <app-hosting-strategy (nextStep)="nextStep($event)" id="2"></app-hosting-strategy>
+    <div style="height: 100px"></div>
+  </div>
+  <div *ngIf="commonService.stage >= 3">
+    <div style="height: 400px; position: relative;"></div>
+    <app-participants (nextStep)="nextStep($event)" id="3"></app-participants>
+    <div style="height: 100px"></div>
+  </div>
+  <div *ngIf="commonService.stage >= 4">
+    <div style="height: 400px; position: relative;"></div>
+    <app-design (nextStep)="nextStep($event)" id="4"></app-design>
+    <div style="height: 100px"></div>
+  </div>
+  <div *ngIf="commonService.stage >= 5">
+    <div style="height: 400px; position: relative;"></div>
+    <app-content (nextStep)="nextStep($event)" id="5"></app-content>
+    <div style="height: 100px"></div>
+  </div>
+</div>
