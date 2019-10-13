@@ -43,10 +43,7 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
     'Sales Accelerator',
     'Portait',
     'Upskill',
-    'Live Webcast'
-  ];
-
-  tab2 = [
+    'Live Webcast',
     'Strategy Slim',
     'BA - 1',
     'BA - 2',
@@ -85,6 +82,7 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    
     const contentData: any = this.commonService.contentObject;
     if (contentData && contentData.content) {
 
@@ -99,7 +97,7 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
 
         }
       }
-      this.tabGroup.selectedIndex = contentData.content.basicInfo.productTab;
+      // this.tabGroup.selectedIndex = contentData.content.basicInfo.productTab;
       this.product = contentData.content.basicInfo.product;
       this.tabGroup1.selectedIndex = contentData.content.basicInfo.languageTab;
       this.clientDate.setValue(contentData.content.basicInfo.clientDate);
@@ -171,11 +169,26 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
     if (contentData.content && contentData.content.design !== undefined) {
       design = contentData.content.design;
     }
+    let content = {};
+    if (contentData.content && contentData.content.content !== undefined) {
+      content = contentData.content.content;
+    }
+    let structure = {};
+    if (contentData.content && contentData.content.structure !== undefined) {
+      structure = contentData.content.structure;
+    }
+    let score = {};
+    if (contentData.content && contentData.content.score !== undefined) {
+      score = contentData.content.score;
+    }
     formdata.content = {
       basicInfo,
       hostingStrategy,
       participant,
-      design
+      design,
+      structure,
+      content,
+      score
     }
     this.spinner.show();
     this.http.postApi('content', formdata).subscribe(res => {

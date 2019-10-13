@@ -184,21 +184,24 @@ export class DesignComponent implements OnInit, AfterViewInit {
     if (contentData.content && contentData.content.hostingStrategy !== undefined) {
       hostingStrategy = contentData.content.hostingStrategy;
     }
+    let content = {};
+    if (contentData.content && contentData.content.content !== undefined) {
+      content = contentData.content.content;
+    }
+    let structure = {};
+    if (contentData.content && contentData.content.structure !== undefined) {
+      structure = contentData.content.structure;
+    }
+    let score = {};
+    if (contentData.content && contentData.content.score !== undefined) {
+      score = contentData.content.score;
+    }
 
 
     if (this.brandingList[0].name === this.brandingTab || this.brandingList[1].name === this.brandingTab) {
       this.clientBrancdCustom.setValue('');
     }
 
-    let file: any = [];
-    if (this.brandingList[2].name === this.brandingTab) {
-      file = JSON.stringify(localStorage.getItem('file'));
-    }
-    // const files = localStorage.getItem('file');
-    //
-    // for (let i = 0; i < files.length; i++) {
-    //   console.log(files[i])
-    // }
 
     const design = {
       brandingTab: this.brandingTab,
@@ -217,7 +220,10 @@ export class DesignComponent implements OnInit, AfterViewInit {
         basicInfo,
         participant,
         hostingStrategy,
-        design
+        design,
+        content,
+        score,
+        structure
       }
     };
 
@@ -238,6 +244,6 @@ export class DesignComponent implements OnInit, AfterViewInit {
   }
 
   nextStepFun() {
-    this.nextStep.emit('4');
+    this.nextStep.emit('5');
   }
 }

@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CommonService} from '../../shared/common.service';
+import {AuthService} from '../../shared/auth-service.service';
+import {HttpApiService} from '../../shared/http-api.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.styl']
 })
-export class ContentComponent implements OnInit {
+export class ContentComponent implements OnInit, AfterViewInit {
+  @Output() nextStep: EventEmitter<string> = new EventEmitter<string>();
   trans = false;
 
   suppportTab = '';
@@ -22,7 +26,8 @@ export class ContentComponent implements OnInit {
     {name: 'Client to provide'},
     {name: 'Digital to Write'},
   ]
-  constructor(public commonService: CommonService) { }
+  constructor(public commonService: CommonService, private authService: AuthService,
+              private http: HttpApiService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     const setInt = setInterval(() => {
@@ -38,6 +43,17 @@ export class ContentComponent implements OnInit {
     }, 500);
   }
 
+  ngAfterViewInit(): void {
+    const setInt = setInterval(() => {
+      const contentData: any = this.commonService.contentObject;
+      if (contentData && contentData.content && contentData.content.content) {
+          this.suppportTab = contentData.content.content.suppportTab;
+          this.translationTab = contentData.content.content.translationTab;
+          clearInterval(setInt);
+      }
+    }, 500);
+  }
+
   supportTabFun(t1) {
     this.suppportTab = t1.name;
   }
@@ -46,4 +62,80 @@ export class ContentComponent implements OnInit {
     this.translationTab = t1.name;
   }
 
+  save() {
+    if (this.suppportTab === '') {
+        this.authService.openSnackBar('Please select content support', false);
+        return false;
+    }
+
+    if (!this.trans) {
+      if (this.translationTab === '') {
+        this.authService.openSnackBar('Please select translation', false);
+        return false;
+      }
+    }
+
+    const contentData: any = this.commonService.contentObject;
+    let basicInfo = {};
+    if (contentData.content.basicInfo) {
+      basicInfo = contentData.content.basicInfo;
+    }
+    let participant = {};
+    if (contentData.content && contentData.content.participant !== undefined) {
+      participant = contentData.content.participant;
+    }
+    let hostingStrategy = {};
+    if (contentData.content && contentData.content.hostingStrategy !== undefined) {
+      hostingStrategy = contentData.content.hostingStrategy;
+    }
+    let design = {};
+    if (contentData.content && contentData.content.design !== undefined) {
+      design = contentData.content.design;
+    }
+    let structure = {};
+    if (contentData.content && contentData.content.structure !== undefined) {
+      structure = contentData.content.structure;
+    }
+    let score = {};
+    if (contentData.content && contentData.content.score !== undefined) {
+      score = contentData.content.score;
+    }
+
+    const content = {
+      suppportTab: this.suppportTab,
+      translationTab: this.translationTab
+    };
+
+    const formData = {
+      createRequestID: localStorage.getItem('_id'),
+      content: {
+        basicInfo,
+        participant,
+        hostingStrategy,
+        design,
+        structure,
+        content,
+        score
+      }
+    };
+
+    this.spinner.show();
+    this.http.postApi('content', formData).subscribe(res => {
+      const result: any = res;
+      if (result.success) {
+        this.authService.openSnackBar('Successfully added', true);
+        this.http.getApi('content/' + localStorage.getItem('_id')).subscribe(ret => {
+          const result1: any = ret;
+          this.commonService.contentObject = result1.message;
+          this.nextStepFun();
+        });
+      } else {
+        this.authService.openSnackBar('Please try again', false);
+      }
+    });
+  }
+
+  nextStepFun() {
+    this.nextStep.emit('7');
+  }
 }

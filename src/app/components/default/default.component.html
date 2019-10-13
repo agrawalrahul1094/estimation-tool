@@ -5,6 +5,9 @@
     <span data-page="page3" (click)="moveScroll('2')" class="slide-title" [ngClass]="commonService.stage === 2 ? 'green' : 'grey'"><span class="slide-point">Hosting Strategy</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot3" data-slide="3"></span></span></span>
     <span data-page="page4" (click)="moveScroll('3')" class="slide-title" [ngClass]="commonService.stage === 3 ? 'green' : 'grey'"><span class="slide-point">Participants</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
     <span data-page="page4" (click)="moveScroll('4')" class="slide-title" [ngClass]="commonService.stage === 4 ? 'green' : 'grey'"><span class="slide-point">Design</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
+    <span data-page="page4" (click)="moveScroll('5')" class="slide-title" [ngClass]="commonService.stage === 4 ? 'green' : 'grey'"><span class="slide-point">Structure</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
+    <span data-page="page4" (click)="moveScroll('6')" class="slide-title" [ngClass]="commonService.stage === 4 ? 'green' : 'grey'"><span class="slide-point">Content</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
+    <span data-page="page4" (click)="moveScroll('7')" class="slide-title" [ngClass]="commonService.stage === 4 ? 'green' : 'grey'"><span class="slide-point">Score</span> <span class="pagination-circle-new"><span class="pc-inside-light-new slide-dot4" data-slide="4"></span></span></span>
 
   </div>
 </div>
@@ -28,7 +31,18 @@
   </div>
   <div *ngIf="commonService.stage >= 5">
     <div style="height: 400px; position: relative;"></div>
-    <app-content (nextStep)="nextStep($event)" id="5"></app-content>
+    <app-structure (nextStep)="nextStep($event)" id="5"></app-structure>
+    <div style="height: 100px"></div>
+  </div>
+  <div *ngIf="commonService.stage >= 6">
+    <div style="height: 400px; position: relative;"></div>
+    <app-content (nextStep)="nextStep($event)" id="6"></app-content>
+    <div style="height: 100px"></div>
+  </div>
+  <div *ngIf="commonService.stage >= 7">
+    <div style="height: 400px; position: relative;"></div>
+    <app-score (nextStep)="nextStep($event)" id="7"></app-score>
     <div style="height: 100px"></div>
   </div>
 </div>
+<!--<app-basic-info (nextStep)="nextStep($event)" id="5"></app-basic-info>-->

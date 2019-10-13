@@ -10,6 +10,8 @@ import {HostingStrategyComponent} from './components/hosting-strategy/hosting-st
 import {ParticipantsComponent} from './components/participants/participants.component';
 import {DesignComponent} from './components/design/design.component';
 import {ContentComponent} from './components/content/content.component';
+import {StructureComponent} from './components/structure/structure.component';
+import {ScoreComponent} from './components/score/score.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -29,7 +31,9 @@ const routes: Routes = [
     HostingStrategyComponent,
     ParticipantsComponent,
     DesignComponent,
-    ContentComponent
+    ContentComponent,
+    StructureComponent,
+    ScoreComponent
   ],
   exports: [RouterModule, HeaderComponent]
 })
