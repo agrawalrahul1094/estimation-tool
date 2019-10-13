@@ -127,12 +127,17 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
     if (contentData.content && contentData.content.hostingStrategy !== undefined) {
       hostingStrategy = contentData.content.hostingStrategy;
     }
+    let design = {};
+    if (contentData.content && contentData.content.design !== undefined) {
+      design = contentData.content.design;
+    }
     const formdata = {
       createRequestID: localStorage.getItem('_id'),
       content: {
         basicInfo,
         hostingStrategy,
-        participant
+        participant,
+        design
       }
     };
     this.spinner.show();

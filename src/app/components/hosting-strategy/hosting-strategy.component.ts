@@ -123,15 +123,21 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
     if (contentData.content && contentData.content.participant !== undefined) {
       participant = contentData.content.participant;
     }
+    let design = {};
+    if (contentData.content && contentData.content.design !== undefined) {
+      design = contentData.content.design;
+    }
     const formdata = {
       createRequestID: localStorage.getItem('_id'),
       content: {}
     };
 
+
     formdata.content = {
       basicInfo,
       hostingStrategy,
-      participant
+      participant,
+      design
     };
 
     this.spinner.show();

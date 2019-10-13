@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {HttpApiService} from '../../shared/http-api.service';
 import {CommonService} from '../../shared/common.service';
 import {AuthService} from '../../shared/auth-service.service';
@@ -10,7 +10,8 @@ import {FormControl} from '@angular/forms';
   templateUrl: './design.component.html',
   styleUrls: ['./design.component.styl']
 })
-export class DesignComponent implements OnInit {
+export class DesignComponent implements OnInit, AfterViewInit {
+  @Output() nextStep: EventEmitter<string> = new EventEmitter<string>();
   urls = [];
   brandingTab = 'Default BTS Branding';
   brandingList = [
@@ -44,11 +45,38 @@ export class DesignComponent implements OnInit {
 
   clientBrancdCustom = new FormControl('');
   prototypeAdditional = new FormControl('');
+  specificDevice = new FormControl('');
   constructor(private http: HttpApiService, private commonService: CommonService,
               private authService: AuthService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.browserTab = this.browserList;
+  }
+
+  ngAfterViewInit(): void {
+    this.browserTab = [];
+    const setInt = setInterval(() => {
+      const contentData: any = this.commonService.contentObject;
+      if (contentData && contentData.content && contentData.content.design) {
+        this.browserTab = contentData.content.design.browserTab;
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.browserList.length; i ++) {
+          const checked = this.browserTab.map((o) => { return o.name; }).indexOf(this.browserList[i].name);
+          if (checked === -1) {
+            this.browserList[i].checked = false;
+          } else {
+            this.browserList[i].checked = true;
+          }
+        }
+        this.brandingTab = contentData.content.design.brandingTab;
+        this.clientBrancdCustom.setValue(contentData.content.design.clientBrancdCustom);
+        this.prototypeTab = contentData.content.design.prototypeTab;
+        this.prototypeAdditional.setValue(contentData.content.design.prototypeAdditional);
+        this.deviceTab = contentData.content.design.deviceTab;
+        this.specificDevice.setValue(contentData.content.design.specificDevice);
+        clearInterval(setInt);
+      }
+    }, 500);
   }
 
   brandingTabFun(name) {
@@ -68,11 +96,13 @@ export class DesignComponent implements OnInit {
     this.browserTab = [];
     this.deviceTab = name.name;
     if (this.deviceTab === 'All Devices') {
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.browserList.length; i++) {
         this.browserList[i].checked = true;
         this.browserTab.push(this.browserList[i]);
       }
     } else if (this.deviceTab === 'iPad & Desktop') {
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.browserList.length; i++) {
         if (this.browserList[i].name === 'Chrome' || this.browserList[i].name === 'Safari') {
           this.browserList[i].checked = true;
@@ -82,6 +112,7 @@ export class DesignComponent implements OnInit {
         }
        }
     } else if (this.deviceTab === 'iPad Only') {
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.browserList.length; i++) {
         if (this.browserList[i].name === 'Safari') {
           this.browserList[i].checked = true;
@@ -91,6 +122,7 @@ export class DesignComponent implements OnInit {
         }
       }
     } else if (this.deviceTab === 'Desktop Only') {
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.browserList.length; i++) {
         if (this.browserList[i].name === 'Chrome') {
           this.browserList[i].checked = true;
@@ -134,7 +166,6 @@ export class DesignComponent implements OnInit {
       this.authService.openSnackBar('Please select prototype', false);
       return false;
     }
-    console.log(this.browserTab)
     if (this.browserTab.length === 0) {
       this.authService.openSnackBar('Please select browser support', false);
       return false;
@@ -170,12 +201,14 @@ export class DesignComponent implements OnInit {
     // }
 
     const design = {
+      brandingTab: this.brandingTab,
       browserTab: this.browserTab,
       clientBrancdCustom: this.clientBrancdCustom.value,
       file: [],
       prototypeTab: this.prototypeTab,
       prototypeAdditional: this.prototypeAdditional.value,
-      deviceTab: this.deviceTab
+      deviceTab: this.deviceTab,
+      specificDevice: this.specificDevice.value
     };
 
     const formData = {
@@ -188,8 +221,23 @@ export class DesignComponent implements OnInit {
       }
     };
 
+    this.spinner.show();
     this.http.postApi('content', formData).subscribe(res => {
-      console.log(res)
-    })
+      const result: any = res;
+      if (result.success) {
+        this.authService.openSnackBar('Successfully added', true);
+        this.http.getApi('content/' + localStorage.getItem('_id')).subscribe(ret => {
+          const result1: any = ret;
+          this.commonService.contentObject = result1.message;
+          this.nextStepFun();
+        });
+      } else {
+        this.authService.openSnackBar('Please try again', false);
+      }
+    });
+  }
+
+  nextStepFun() {
+    this.nextStep.emit('4');
   }
 }
