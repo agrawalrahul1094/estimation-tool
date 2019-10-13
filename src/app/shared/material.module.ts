@@ -17,6 +17,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatNativeDateModule} from '@angular/material';
+import { MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -39,7 +40,8 @@ import {MatNativeDateModule} from '@angular/material';
     NgxSpinnerModule,
     MatCardModule,
     MatTabsModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatMenuModule
   ],
   exports: [
     MatInputModule,
@@ -58,7 +60,8 @@ import {MatNativeDateModule} from '@angular/material';
     MatIconModule,
     NgxSpinnerModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatMenuModule
   ]
 })
 export class MaterialModule {

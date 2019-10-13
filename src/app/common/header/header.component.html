@@ -1,4 +1,35 @@
 <div class="header">
-  <button mat-raised-button color="primary">My Project History</button>
-  <img src="https://i.stack.imgur.com/1zAjJ.png" (click)="logout()" width="50" height="50">
+  <!-- <div class="row timeEffort">
+    <span>
+      <h5>Time Efforts</h5>
+    </span>
+    <span>
+      <h5>QA: {{commonService.qaTime}} hrs</h5>
+    </span>
+    <span>
+      <h5>Developement: {{commonService.devTime}} hrs</h5>
+    </span>
+    <span>
+      <h5>PM: {{commonService.pmTime}} hrs</h5>
+    </span>
+    <span>
+      <h5>Design: {{commonService.desTime}} hrs</h5>
+    </span>
+    <span>
+      <h5>Total: {{commonService.totTime}} hrs</h5>
+    </span>
+  </div> -->
+  <div class="profile-menu">
+    <button mat-mini-fab [matMenuTriggerFor]="menu">
+      <i class="material-icons">account_circle</i>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item>My Projects</button>
+      <button mat-menu-item>All Projects</button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
 </div>

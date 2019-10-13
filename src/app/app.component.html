@@ -1,22 +1,8 @@
-<div class="main container-fluid">
-
-  <div *ngIf="loggedIn">
-    <div class="header">
-      <div class="row timeEffort">
-        <span><h5>Time Efforts</h5> </span>
-        <span><h5>QA: {{commonService.qaTime}} hrs</h5></span>
-        <span><h5>Developement: {{commonService.devTime}} hrs</h5></span>
-        <span><h5>PM: {{commonService.pmTime}} hrs</h5></span>
-        <span><h5>Design: {{commonService.desTime}} hrs</h5></span>
-        <span><h5>Total: {{commonService.totTime}} hrs</h5></span>
-      </div>
-      <app-header></app-header>
-    </div>
-    <div class="container">
-      <router-outlet></router-outlet>
-    </div>
+<div class="main container-fluid row">
+  <div class="header-container col-sm-12" *ngIf="!loggedIn"><!--todo: correct condition here is login true-->
+    <app-header></app-header>
   </div>
-  <div *ngIf="!loggedIn">
+  <div class="route-container col-sm-12">
     <router-outlet></router-outlet>
   </div>
 </div>
