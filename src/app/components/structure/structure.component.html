@@ -1,1 +1,67 @@
-<p>structure works!</p>
+<div class="col-md-12">
+  <h2>Structure</h2>
+  <mat-card>
+    <div>
+
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-md-2">
+          <span>Rounds</span>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field class="no-line">
+                <input matInput type="number" [formControl]="round" >
+            </mat-form-field>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span>Activities</span>
+        </div>
+        <div class="col-md-10">
+          <div class="row">
+            Select the activities and their count
+          </div>
+          <div class="row">
+            <div class="col-6 leftSide">
+              <div class="row leftColumn" *ngFor="let left of leftColumn; let i = index">
+                <div class="col-md-6 leftHeight">
+                  <button class="btnSelect" mat-button  [ngClass]="left.checked ? 'pulseTab' : '' " (click)="leftColumnTab(left, i)">{{left.name}}</button>
+                </div>
+                <div class="col-md-3 leftHeight" *ngIf="left.checked">
+                  <mat-form-field class="no-line">
+                    <input matInput type="number" (blur)="onChangeNumber(left, $event, 'left');" [(ngModel)]="left.value" [value]="left.value">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row" *ngFor="let right of rightColumn; let i = index">
+                <div class="col-md-4 leftHeight">
+                  <button class="btnSelect" mat-button  [ngClass]="right.checked ? 'pulseTab' : '' " (click)="rightColumnTab(right, i)">{{right.name}}</button>
+                </div>
+                <div class="col-md-3 leftHeight" *ngIf="right.checked">
+                  <mat-form-field class="no-line">
+                    <input matInput type="number" (blur)="onChangeNumber(right, $event, 'right');" [(ngModel)]="right.value" [value]="right.value">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-5" *ngIf="right.checked">
+                  <section class="example-section">
+                    <mat-checkbox class="example-margin" (change)="onChange(right)" [(ngModel)]="right.feedback">Feedback</mat-checkbox>
+                    <mat-checkbox class="example-margin" (change)="onChange(right)" [(ngModel)]="right.result">Result</mat-checkbox>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
+<div class="pull-right">
+  <button mat-raised-button color="primary" class="save" (click)="save()">SAVE & PROCEED</button>
+</div>
