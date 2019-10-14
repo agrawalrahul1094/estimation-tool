@@ -13,8 +13,20 @@
   .content-container
     height 91%
   .navigation-container
-      display flex
-      align-items center
+      // display flex
+      // align-items center
+  .time-container
+    display flex
+    align-items center
+    justify-content center
+    height 100px
+    width 100px
+    border 5px solid white
+    border-radius 50%
+    color white
+    text-align center
+    float right
+    margin 37px 0
 
 .slide-title {
   width: 100%;
@@ -66,14 +78,33 @@
 
 .nav-menu-collapsed
   display none
-
+@media screen and (min-width:767px)
+  .content-header
+    .time-container
+      display none
 @media screen and (max-width:767px)
   .nav-menu
     display none
+  
   .nav-menu-collapsed
     display block
   .wrapper
     position relative
+    top -55px
+    .content-container
+      height 87%
+    .time-container
+      float none
+      margin 0
+      position relative
+      left 50%
+      transform translateX(-50%)
+    .top-bar
+      padding 5px 0
+      display flex
+      justify-content space-between
+      align-items center
     .navigation-container
-      position absolute
-      justify-content flex-end
+      // position absolute
+      // justify-content flex-end
+      display none

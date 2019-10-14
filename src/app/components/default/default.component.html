@@ -1,5 +1,24 @@
 <div *ngIf="getData" class="wrapper row">
   <div [ngSwitch]="commonService.stageActive" class="content-container col-xl-10 col-lg-9 col-md-9 col-sm-12">
+    <div class="content-header col-sm-12">
+      <div class="time-container col-sm-12">
+        {{commonService.totTime}}
+        <br>hours
+      </div>
+      <div class="top-bar col-sm-12">
+        <h2 class="title">
+          {{commonService.stageName[commonService.stageActive-1]}}
+        </h2>
+        <div class="nav-menu-collapsed">
+          <button mat-mini-fab #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
+            <i class="material-icons">{{menuTrigger.menuOpen ? 'close' : 'menu'}}</i>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <ng-container *ngTemplateOutlet="navMenu"></ng-container>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
     <app-basic-info *ngSwitchCase="1" (nextStep)="nextStep($event)" id="1"></app-basic-info>
     <app-hosting-strategy *ngSwitchCase="2" (nextStep)="nextStep($event)" id="2"></app-hosting-strategy>
     <app-participants *ngSwitchCase="3" (nextStep)="nextStep($event)" id="3"></app-participants>
@@ -10,20 +29,21 @@
     <app-basic-info *ngSwitchDefault (nextStep)="nextStep($event)" id="1"></app-basic-info>
   </div>
   <div class="navigation-container col-xl-2 col-lg-3 col-md-3 col-sm-12">
-    <!-- <div class="time-container col-sm-12">
+    <div class="time-container col-sm-12">
       {{commonService.totTime}}
-    </div> -->
+      <br>hours
+    </div>
     <div class="nav-menu">
       <ng-container *ngTemplateOutlet="navMenu"></ng-container>
     </div>
-    <div class="nav-menu-collapsed">
+    <!-- <div class="nav-menu-collapsed">
       <button mat-mini-fab #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
         <i class="material-icons">{{menuTrigger.menuOpen ? 'close' : 'menu'}}</i>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
         <ng-container *ngTemplateOutlet="navMenu"></ng-container>
       </mat-menu>
-    </div>
+    </div> -->
   </div>
 
 </div>
