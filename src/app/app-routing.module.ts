@@ -12,10 +12,12 @@ import {DesignComponent} from './components/design/design.component';
 import {ContentComponent} from './components/content/content.component';
 import {StructureComponent} from './components/structure/structure.component';
 import {ScoreComponent} from './components/score/score.component';
+import { EffortComponent } from './components/effort/effort.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'details', component: DefaultComponent, canActivate: [AuthGuard] },
+  { path: 'efforts', component: EffortComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
