@@ -36,9 +36,11 @@ export class DefaultComponent implements OnInit {
 
   nextStep(e) {
     this.commonService.stage = Number(e);
-    setTimeout(() => {
-      this.moveScroll(e);
-    }, 1000);
+    this.commonService.stageActive = Number(e);
+    this.commonService.stageAvailable = this.commonService.stageAvailable < this.commonService.stage ? this.commonService.stage : this.commonService.stageAvailable;
+    // setTimeout(() => {
+    //   this.moveScroll(e);
+    // }, 1000);
   }
 
 }
