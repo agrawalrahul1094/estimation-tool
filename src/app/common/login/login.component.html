@@ -6,7 +6,7 @@
     <div class="input-wrapper col-md-6 col-sm-12">
       <div class="input-container col-sm-12">
         <h2 class="header">Estimation tool</h2>
-        <div class="loginForm" *ngIf="createRequest; then createRequestForm else userForm"></div>
+        <div class="loginForm" *ngIf="createRequest; then createRequestTemplate else userForm"></div>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@
   </form>
 </ng-template>
 
-<ng-template #createRequestForm>
+<ng-template #createRequestTemplate>
   <form [formGroup]="createRequestForm" (submit)="createRequestFun(createRequestForm.value)">
     <div class="form-group">
       <label>Client Name</label>
