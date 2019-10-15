@@ -1,5 +1,5 @@
 <div *ngIf="getData" class="wrapper row">
-  <div [ngSwitch]="commonService.stageActive" class="content-container col-xl-10 col-lg-9 col-md-9 col-sm-12">
+  <div [ngSwitch]="commonService.stageActive" class="content-container col-xl-10 col-lg-9 col-md-12 col-sm-12">
     <div class="content-header col-sm-12">
       <div class="time-container col-sm-12">
         {{commonService.totTime}}
@@ -27,7 +27,7 @@
     <app-content *ngSwitchCase="6" (nextStep)="nextStep($event)" id="6"></app-content>
     <app-score *ngSwitchCase="7" (nextStep)="nextStep($event)" id="7"></app-score>
   </div>
-  <div class="navigation-container col-xl-2 col-lg-3 col-md-3 col-sm-12">
+  <div class="navigation-container col-xl-2 col-lg-3 col-md-12 col-sm-12">
     <div class="time-container col-sm-12">
       {{commonService.totTime}}
       <br>hours
