@@ -18,6 +18,7 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
 
   devTab = '';
   deployement = [
+    'LTI',
     'Cloud',
     'Scorm + LMS',
     'Qkit',

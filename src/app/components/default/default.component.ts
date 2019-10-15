@@ -35,6 +35,7 @@ export class DefaultComponent implements OnInit {
   }
 
   nextStep(e) {
+    this.spinner.hide();
     this.commonService.stage = Number(e);
     this.commonService.stageActive = Number(e);
     this.commonService.stageAvailable = this.commonService.stageAvailable < this.commonService.stage ? this.commonService.stage : this.commonService.stageAvailable;
