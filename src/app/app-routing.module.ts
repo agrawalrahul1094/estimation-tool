@@ -35,7 +35,8 @@ const routes: Routes = [
     DesignComponent,
     ContentComponent,
     StructureComponent,
-    ScoreComponent
+    ScoreComponent,
+    EffortComponent
   ],
   exports: [RouterModule, HeaderComponent]
 })
