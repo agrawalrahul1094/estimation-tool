@@ -40,6 +40,9 @@ export class DefaultComponent implements OnInit {
             this.commonService.structureActivitiesList = ret.message.content.structureActivitiesList;
           }
         }
+        if (ret.message.content.timeEfforts.content !== undefined) {
+          this.commonService.calcObj.content = ret.message.content.timeEfforts.content;
+        }
         this.commonService.getTimeEfforts();
       }
       this.getData = true;

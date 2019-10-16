@@ -30,6 +30,16 @@
       <hr>
 
       <div class="row">
+        <div class="col-md-2">
+          <span>Content Inpur Responsibility</span>
+        </div>
+        <div class="col-md-10">
+          <button class="btnSelect" mat-button *ngFor="let t1 of contentList" [ngClass]="contentTab === t1.name ? 'pulseTab' : '' " (click)="contentTabFun(t1)">{{t1.name}}</button>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
         <div class="col-md-10" [ngClass]="trans ? 'disabled' : ''">
           <div class="row">
             <div class="col-md-2">

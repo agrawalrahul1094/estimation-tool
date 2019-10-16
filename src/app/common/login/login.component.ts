@@ -74,6 +74,7 @@ export class LoginComponent implements OnInit {
         const result: any = res;
         if (result.success) {
           localStorage.setItem('_id', result.message._id);
+          localStorage.setItem('name', formData.eventName);
           this.commonService.contentObject = {
               createRequest: result.message
           };

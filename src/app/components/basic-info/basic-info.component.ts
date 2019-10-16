@@ -197,7 +197,9 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
       structure,
       content,
       score,
-      timeEfforts: this.commonService.calcObj
+      timeEfforts: this.commonService.calcObj,
+      participateUserRoleList: this.commonService.participateUserRoleList,
+      structureActivitiesList: this.commonService.structureActivitiesList
     }
     this.spinner.show();
     this.http.postApi('content', formdata).subscribe(res => {

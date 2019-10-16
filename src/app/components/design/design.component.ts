@@ -36,11 +36,11 @@ export class DesignComponent implements OnInit, AfterViewInit {
 
   browserTab = [];
   browserList = [
-    {name: 'Chrome', checked: true},
-    {name: 'Internet Explorer', checked: true},
-    {name: 'Mozilla Firefox', checked: true},
-    {name: 'Edge', checked: true},
-    {name: 'Safari', checked: true},
+    {name: 'Chrome', checked: false},
+    {name: 'Internet Explorer', checked: false},
+    {name: 'Mozilla Firefox', checked: false},
+    {name: 'Edge', checked: false},
+    {name: 'Safari', checked: false},
   ];
 
   clientBrancdCustom = new FormControl('');
@@ -313,6 +313,8 @@ export class DesignComponent implements OnInit, AfterViewInit {
         score,
         structure,
         timeEfforts: this.commonService.calcObj,
+        participateUserRoleList: this.commonService.participateUserRoleList,
+        structureActivitiesList: this.commonService.structureActivitiesList
       }
     };
 

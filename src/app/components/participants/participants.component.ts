@@ -194,7 +194,8 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
         structure,
         score,
         timeEfforts: this.commonService.calcObj,
-        participateUserRoleList: this.commonService.participateUserRoleList
+        participateUserRoleList: this.commonService.participateUserRoleList,
+        structureActivitiesList: this.commonService.structureActivitiesList
       }
     };
     this.spinner.show();

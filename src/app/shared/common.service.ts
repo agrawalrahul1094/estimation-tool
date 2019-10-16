@@ -100,6 +100,12 @@ export class CommonService {
         dev: 0,
         pm: 0,
         des: 0
+      },
+      contentInput: {
+        qa: 0,
+        dev: 0,
+        pm: 0,
+        des: 0
       }
     }
   };
@@ -216,6 +222,12 @@ export class CommonService {
         this.calcObj.content.contentSupport.des = 0;
         this.calcObj.content.contentSupport.qa = qaHrs;
         this.calcObj.content.contentSupport.pm = 0;
+      } else if (module === 'contentInput') {
+        devHrs = Number(time.dev / 60);
+        this.calcObj.content.contentInput.dev = devHrs;
+        this.calcObj.content.contentInput.des = 0;
+        this.calcObj.content.contentInput.qa = 0;
+        this.calcObj.content.contentInput.pm = 0;
       }
     }
 
@@ -238,7 +250,8 @@ export class CommonService {
       this.calcObj.participate.scaleTesting.dev + getParticipateUserRoleList +
       this.calcObj.design.protoType.dev + structureActivitiesList +
       this.calcObj.design.device.dev +
-      this.calcObj.content.contentSupport.dev;
+      this.calcObj.content.contentSupport.dev +
+      this.calcObj.content.contentInput.dev;
     return dev;
   }
 

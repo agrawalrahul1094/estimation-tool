@@ -74,7 +74,6 @@ export class StructureComponent implements OnInit, AfterViewInit {
             this.rightColumn[checked].result = this.rightSelect[i].result;
           }
         }
-        this.cdr.detectChanges();
         clearInterval(setInt);
       }
     }, 500);
@@ -184,6 +183,7 @@ export class StructureComponent implements OnInit, AfterViewInit {
         structure,
         score,
         timeEfforts: this.commonService.calcObj,
+        participateUserRoleList: this.commonService.participateUserRoleList,
         structureActivitiesList: this.commonService.structureActivitiesList
       }
     };

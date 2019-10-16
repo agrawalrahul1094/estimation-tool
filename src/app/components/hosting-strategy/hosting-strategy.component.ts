@@ -57,21 +57,25 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const contentData: any = this.commonService.contentObject;
-    if (contentData && contentData.content && contentData.content.hostingStrategy) {
-      this.devTab = contentData.content.hostingStrategy.devTab;
-      this.signTab = contentData.content.hostingStrategy.signTab;
-      this.deliverTab = contentData.content.hostingStrategy.deliverTab;
-      for (let i = 0; i < contentData.content.hostingStrategy.signInDate.length; i++) {
-        (<FormArray> this.treasuryForm.get('treasuryItems')).push(
-          new FormGroup({
-            date: new FormControl(contentData.content.hostingStrategy.signInDate[i].date, Validators.required),
-            cityName: new FormControl(contentData.content.hostingStrategy.signInDate[i].cityName, Validators.required),
-          })
-        );
+    const setInt = setInterval(() => {
+      if (this.commonService.contentObject) {
+        const contentData: any = this.commonService.contentObject;
+        if (contentData && contentData.content && contentData.content.hostingStrategy) {
+          this.devTab = contentData.content.hostingStrategy.devTab;
+          this.signTab = contentData.content.hostingStrategy.signTab;
+          this.deliverTab = contentData.content.hostingStrategy.deliverTab;
+          for (let i = 0; i < contentData.content.hostingStrategy.signInDate.length; i++) {
+            (<FormArray> this.treasuryForm.get('treasuryItems')).push(
+              new FormGroup({
+                date: new FormControl(contentData.content.hostingStrategy.signInDate[i].date, Validators.required),
+                cityName: new FormControl(contentData.content.hostingStrategy.signInDate[i].cityName, Validators.required),
+              })
+            );
+          }
+        }
+        clearInterval(setInt);
       }
-      this.cdr.detectChanges();
-    }
+    }, 500);
   }
 
   devlopementTab(dev) {
@@ -166,7 +170,9 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
       structure,
       content,
       score,
-      timeEfforts: this.commonService.calcObj
+      timeEfforts: this.commonService.calcObj,
+      participateUserRoleList: this.commonService.participateUserRoleList,
+      structureActivitiesList: this.commonService.structureActivitiesList
     };
 
     this.spinner.show();
