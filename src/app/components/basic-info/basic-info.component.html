@@ -22,7 +22,10 @@
               <mat-select class="full-width" multiple
                           [(ngModel)]="selectedLang"
                           (selectionChange)="selectLanguage($event)"
-                          name="selectedLang">
+                          name="selectedLang" style="margin-top: 18px;
+                                                    border: 1px solid gray;
+                                                    border-radius: 2px;
+                                                    padding-left: 7px;">
                 <mat-option *ngFor="let user of languageList; let i = index" class="multiple-field-box" [value]="user">
                   {{ user.lang }}
                 </mat-option>

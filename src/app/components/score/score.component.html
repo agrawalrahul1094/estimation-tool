@@ -1,1 +1,38 @@
-<p>score works!</p>
+<div class="activity-container col-md-12">
+  <!-- <h2>Structure</h2> -->
+  <mat-card class="activity-content">
+    <div>
+      <div class="row">
+        <div class="col-md-2">
+          <span>Number of Metrics</span>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field class="no-line">
+            <input matInput type="number" [formControl]="numofMetrics" >
+          </mat-form-field>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span>Score / Model</span>
+        </div>
+        <div class="col-md-6">
+          Image
+          <br><br>
+          <div class="fileTag">
+            <input class="file" type='file' (change)="onSelectFile($event)" multiple>
+            <i class="material-icons plusIcon">
+              add_circle
+            </i>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </mat-card>
+</div>
+<div class="pull-right">
+  <button mat-raised-button color="primary" class="save" (click)="save()">CALCULATE EFFORTS</button>
+</div>
