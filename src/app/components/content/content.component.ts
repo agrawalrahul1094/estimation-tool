@@ -13,7 +13,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
   @Output() nextStep: EventEmitter<string> = new EventEmitter<string>();
   trans = false;
 
-  suppportTab = '';
+  suppportTab: any = '';
   supportList = [
     {name: 'Account Manager to provide'},
     {name: 'Client to provide'},
@@ -56,6 +56,23 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
   supportTabFun(t1) {
     this.suppportTab = t1.name;
+    let time = {};
+    if (this.suppportTab === 'Client to provide' || this.suppportTab === 'Digital to Write') {
+      time = {
+        qa: 120,
+        pm: 0,
+        dev: 0,
+        des: 0
+      };
+    } else {
+      time = {
+        qa: 0,
+        pm: 0,
+        dev: 0,
+        des: 0
+      };
+    }
+    this.commonService.devTimeEfforts(time, 'content', 'contentSupport');
   }
 
   translationTabFun(t1) {
@@ -115,7 +132,8 @@ export class ContentComponent implements OnInit, AfterViewInit {
         design,
         structure,
         content,
-        score
+        score,
+        timeEfforts: this.commonService.calcObj,
       }
     };
 

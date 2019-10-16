@@ -17,26 +17,27 @@ export class StructureComponent implements OnInit, AfterViewInit {
   rightSelect = [];
 
   leftColumn = [
-    {name: 'Identifier', checked: false, value: 1},
-    {name: 'Team Name Entry', checked: false, value: 1},
-    {name: 'Info (Case Study/Scenario )', checked: false, value: 1},
-    {name: 'Image ', checked: false, value: 1},
-    {name: 'Carousel ', checked: false, value: 1},
-    {name: 'Team Info ', checked: false, value: 1},
-    {name: 'Idea hunt ', checked: false, value: 1},
-    {name: 'Brainstorm ', checked: false, value: 1},
-    {name: 'Custom Activity ', checked: false, value: 1},
-    {name: 'Leader Board ', checked: false, value: 1},
+    {name: 'Identifier', checked: false, value: 1, qa: 20, dev: 10, pm: 0, des: 0},
+    {name: 'Team Name Entry', checked: false, value: 1, qa: 20, dev: 20, pm: 0, des: 0},
+    {name: 'Info (Case Study/Scenario )', checked: false, value: 1, qa: 15, dev: 20, pm: 0, des: 0},
+    {name: 'Image', checked: false, value: 1, qa: 15, dev: 20, pm: 0, des: 0},
+    {name: 'Carousel', checked: false, value: 1, qa: 30, dev: 20, pm: 0, des: 0},
+    {name: 'Team Info', checked: false, value: 1, qa: 30, dev: 60, pm: 0, des: 0},
+    {name: 'Idea hunt', checked: false, value: 1, qa: 20, dev: 90, pm: 0, des: 0},
+    {name: 'Video hunt', checked: false, value: 1, qa: 30, dev: 90, pm: 0, des: 0},
+    {name: 'Brainstorm', checked: false, value: 1, qa: 0, dev: 40, pm: 0, des: 0},
+    {name: 'Custom Activity', checked: false, value: 1, qa: 0, dev: 0, pm: 0, des: 0},
+    {name: 'Leader Board', checked: false, value: 1, qa: 0, dev: 0, pm: 0, des: 0},
   ];
 
   rightColumn = [
-    {name: 'Single Select', checked: false, value: 1, feedback: false, result: false},
-    {name: 'Multiple Select', checked: false, value: 1, feedback: false, result: false},
-    {name: 'Slider', checked: false, value: 1, feedback: false, result: false},
-    {name: 'Drag & Drop', checked: false, value: 1, feedback: false, result: false},
-    {name: 'Dropdown', checked: false, value: 1, feedback: false, result: false},
-    {name: 'Scale-Rating', checked: false, value: 1, feedback: false, result: false},
-    {name: 'Toggle', checked: false, value: 1, feedback: false, result: false}
+    {name: 'Single Select', checked: false, value: 1, feedback: false, result: false, qa: 20, dev: 40, pm: 0, des: 0},
+    {name: 'Multiple Select', checked: false, value: 1, feedback: false, result: false, qa: 15, dev: 40, pm: 0, des: 0},
+    {name: 'Slider', checked: false, value: 1, feedback: false, result: false, qa: 20, dev: 0, pm: 0, des: 0},
+    {name: 'Drag & Drop', checked: false, value: 1, feedback: false, result: false, qa: 0, dev: 40, pm: 0, des: 0},
+    {name: 'Dropdown', checked: false, value: 1, feedback: false, result: false, qa: 30, dev: 40, pm: 0, des: 0},
+    {name: 'Scale-Rating', checked: false, value: 1, feedback: false, result: false, qa: 30, dev: 40, pm: 0, des: 0},
+    {name: 'Toggle', checked: false, value: 1, feedback: false, result: false, qa: 15, dev: 40, pm: 0, des: 0}
   ];
 
   constructor(private authService: AuthService, private commonService: CommonService,
@@ -53,7 +54,8 @@ export class StructureComponent implements OnInit, AfterViewInit {
         this.round.setValue(contentData.content.structure.round);
         this.leftSelect = contentData.content.structure.leftSelect;
         this.rightSelect = contentData.content.structure.rightSelect;
-
+        this.commonService.structureActivitiesList = [...this.leftSelect, ...this.rightSelect];
+        this.commonService.timeEfforts('', '', '');
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.leftSelect.length; i ++) {
           const checked = this.leftSelect.map((o) => { return o.name; }).indexOf(this.leftSelect[i].name);
@@ -72,8 +74,8 @@ export class StructureComponent implements OnInit, AfterViewInit {
             this.rightColumn[checked].result = this.rightSelect[i].result;
           }
         }
-        clearInterval(setInt);
         this.cdr.detectChanges();
+        clearInterval(setInt);
       }
     }, 500);
   }
@@ -83,23 +85,37 @@ export class StructureComponent implements OnInit, AfterViewInit {
     if (index === -1) {
       this.leftColumn[i].checked = true;
       this.leftSelect.push(left);
+      this.addTimeEfforts(left, 'add');
     } else {
       this.leftColumn[i].checked = false;
       this.leftColumn[i].value = 1;
       this.leftSelect.splice(index, 1);
+      this.addTimeEfforts(left, 'minus');
     }
   }
 
+  addTimeEfforts(obj, type) {
+    if (type === 'add') {
+      this.commonService.structureActivitiesList.push(obj);
+      this.commonService.timeEfforts('', '', '');
+    } else {
+      const index = this.commonService.structureActivitiesList.indexOf(obj);
+      this.commonService.structureActivitiesList.splice(index, 1);
+      this.commonService.timeEfforts('', '', '');
+    }
+  }
 
   rightColumnTab(right, i) {
     const index = this.rightSelect.indexOf(right);
     if (index === -1) {
       this.rightColumn[i].checked = true;
       this.rightSelect.push(right);
+      this.addTimeEfforts(right, 'add');
     } else {
       this.rightColumn[i].checked = false;
       this.rightColumn[i].value = 1;
       this.rightSelect.splice(index, 1);
+      this.addTimeEfforts(right, 'minus');
     }
   }
 
@@ -107,6 +123,7 @@ export class StructureComponent implements OnInit, AfterViewInit {
     const checked = this.rightSelect.map((o) => { return o.name; }).indexOf(obj.name);
     this.rightSelect[checked].feedback = obj.feedback;
     this.rightSelect[checked].result = obj.result;
+    this.commonService.timeEfforts('', '', '');
   }
 
   onChangeNumber(obj, e, side) {
@@ -165,7 +182,9 @@ export class StructureComponent implements OnInit, AfterViewInit {
         design,
         content,
         structure,
-        score
+        score,
+        timeEfforts: this.commonService.calcObj,
+        structureActivitiesList: this.commonService.structureActivitiesList
       }
     };
 

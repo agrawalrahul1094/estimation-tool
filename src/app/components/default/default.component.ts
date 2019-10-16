@@ -18,7 +18,7 @@ export class DefaultComponent implements OnInit {
     this.http.getApi('content/' + localStorage.getItem('_id')).subscribe(res => {
       const ret: any = res;
       this.commonService.contentObject = ret.message;
-      if (ret.message.content.timeEfforts !== undefined) {
+      if (ret.message.content && ret.message.content.timeEfforts !== undefined) {
         if (ret.message.content.timeEfforts.basicInfo !== undefined) {
           this.commonService.calcObj.basicInfo = ret.message.content.timeEfforts.basicInfo;
         }
@@ -27,7 +27,18 @@ export class DefaultComponent implements OnInit {
         }
         if (ret.message.content.timeEfforts.participate !== undefined) {
           this.commonService.calcObj.participate = ret.message.content.timeEfforts.participate;
-          this.commonService.participateUserRoleList = ret.message.content.participateUserRoleList;
+          if (ret.message.content.participateUserRoleList !== undefined) {
+            this.commonService.participateUserRoleList = ret.message.content.participateUserRoleList;
+          }
+        }
+        if (ret.message.content.timeEfforts.design !== undefined) {
+          this.commonService.calcObj.design = ret.message.content.timeEfforts.design;
+        }
+        if (ret.message.content.timeEfforts.structure !== undefined) {
+          this.commonService.calcObj.structure = ret.message.content.timeEfforts.structure;
+          if (ret.message.content.structureActivitiesList !== undefined) {
+            this.commonService.structureActivitiesList = ret.message.content.structureActivitiesList;
+          }
         }
         this.commonService.getTimeEfforts();
       }

@@ -50,6 +50,7 @@ export class DesignComponent implements OnInit, AfterViewInit {
               private authService: AuthService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    // this.browserTab = this.browserList;
   }
 
   ngAfterViewInit(): void {
@@ -221,9 +222,10 @@ export class DesignComponent implements OnInit, AfterViewInit {
   }
 
   checkBrowserListType(brow) {
-    const index = this.browserTab.indexOf(brow.name);
+    const checked = this.browserList.map((o) => { return o.name; }).indexOf(brow.name);
+    this.browserList[checked].checked = !this.browserList[checked].checked;
+    const index = this.browserTab.map((o) => { return o.name; }).indexOf(brow.name);
     if (index === -1) {
-      brow.checked = true;
       this.browserTab.push(brow);
     } else {
       this.browserTab.splice(index, 1);
@@ -309,7 +311,8 @@ export class DesignComponent implements OnInit, AfterViewInit {
         design,
         content,
         score,
-        structure
+        structure,
+        timeEfforts: this.commonService.calcObj,
       }
     };
 

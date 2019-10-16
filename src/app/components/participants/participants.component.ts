@@ -28,7 +28,7 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
   participateTeam = new FormControl('');
   followersTeam = new FormControl('');
 
-  constructor(private commonService: CommonService, private authService: AuthService, private http: HttpApiService,
+  constructor(public commonService: CommonService, private authService: AuthService, private http: HttpApiService,
               private spinner: NgxSpinnerService, private cdr: ChangeDetectorRef) {
   }
 
@@ -54,6 +54,7 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
       this.participateTeam.setValue(contentData.content.participant.participateTeam);
       this.followersTeam.setValue(contentData.content.participant.followersTeam);
       this.userRole = contentData.content.participant.userRole;
+      this.scaleTesting = contentData.content.participant.scaleTesting;
       this.cdr.detectChanges();
     }
   }
@@ -115,6 +116,7 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
         des: 0
       };
     }
+    this.scaleTesting = e.checked;
     this.commonService.timeEfforts(timeEff, 'participate', 'scaleTesting');
   }
 
@@ -149,7 +151,8 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
       maxVal: this.maxVal.value,
       participateTeam: this.participateTeam.value,
       followersTeam: this.followersTeam.value,
-      userRole: this.userRole
+      userRole: this.userRole,
+      scaleTesting: this.scaleTesting
     };
     this.postData(participant);
   }
