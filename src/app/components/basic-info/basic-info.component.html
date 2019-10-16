@@ -21,6 +21,7 @@
             <mat-tab label="Multilingual">
               <mat-select class="full-width" multiple
                           [(ngModel)]="selectedLang"
+                          (selectionChange)="selectLanguage($event)"
                           name="selectedLang">
                 <mat-option *ngFor="let user of languageList; let i = index" class="multiple-field-box" [value]="user">
                   {{ user.lang }}

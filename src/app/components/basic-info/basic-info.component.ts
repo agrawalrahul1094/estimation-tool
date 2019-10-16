@@ -53,16 +53,16 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
   ];
 
   languageList = [
-    {lang: 'English', checked: true},
-    {lang: 'Chinese', checked: true},
-    {lang: 'Spanish', checked: true},
-    {lang: 'Potuguese', checked: true},
-    {lang: 'Russian', checked: true}
+    {lang: 'English', checked: true, qa: 0, dev: 240, pm: 0, des: 0},
+    {lang: 'Chinese', checked: true, qa: 0, dev: 240, pm: 0, des: 0},
+    {lang: 'Spanish', checked: true, qa: 0, dev: 240, pm: 0, des: 0},
+    {lang: 'Potuguese', checked: true, qa: 0, dev: 240, pm: 0, des: 0},
+    {lang: 'Russian', checked: true, qa: 0, dev: 240, pm: 0, des: 0}
   ];
   navigation = [
-    {name: 'Facilitator Controlled', qa: 0, dev: 240, pm: 0, des: 0},
-    {name: 'Self-Paced', qa: 0, dev: 120, pm: 0, des: 0},
-    {name: 'Hybrid', qa: 0, dev: 360, pm: 0, des: 0}
+    {name: 'Facilitator Controlled', qa: 0, dev: 240, pm: 0, des: 15},
+    {name: 'Self-Paced', qa: 0, dev: 120, pm: 0, des: 15},
+    {name: 'Hybrid', qa: 0, dev: 360, pm: 0, des: 15}
   ];
   // users = [
   //   { name: 'name1', checked: false },
@@ -82,7 +82,7 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    
+
     const contentData: any = this.commonService.contentObject;
     if (contentData && contentData.content) {
 
@@ -112,12 +112,20 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
     this.product = name;
   }
 
-  tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
-    this.tabIndex = tabChangeEvent.index;
-  }
 
   tabChangedLanguage = (tabChangeEvent: MatTabChangeEvent): void => {
     this.tabIndexLanguage = tabChangeEvent.index;
+    if (this.tabIndexLanguage === 0) {
+      const time = {
+        multi: Number(0)
+      };
+      this.commonService.timeEfforts(time, 'basicInfo', 'multi_language');
+    } else {
+      const time = {
+        multi: Number(this.selectedLang.length * 120)
+      };
+      this.commonService.timeEfforts(time, 'basicInfo', 'multi_language');
+    }
   }
 
   navigationTab(nav) {
@@ -188,7 +196,8 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
       design,
       structure,
       content,
-      score
+      score,
+      timeEfforts: this.commonService.calcObj
     }
     this.spinner.show();
     this.http.postApi('content', formdata).subscribe(res => {
@@ -208,6 +217,23 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
 
   nextStepFun() {
     this.nextStep.emit('2');
+  }
+
+  selectLanguage(e) {
+    let time;
+    if (this.tabGroup1.selectedIndex === 1) {
+
+      if (e.value.length > 0) {
+          time = {
+            multi: Number(e.value.length * 120)
+          };
+      } else {
+        time = {
+          multi: 0
+        };
+      }
+      this.commonService.timeEfforts(time, 'basicInfo', 'multi_language');
+    }
   }
 
 }

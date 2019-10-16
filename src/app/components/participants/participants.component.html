@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-10">
           <button class="btnSelect" type="button" mat-button *ngFor="let user of userList"
-                  [ngClass]="userTab === user.name ? 'pulseTab' : '' " (click)="userType(user.name)">{{user.name}}</button>
+                  [ngClass]="userTab.name === user.name ? 'pulseTab' : '' " (click)="userType(user)">{{user.name}}</button>
         </div>
       </div>
       <br>
@@ -35,6 +35,7 @@
                   </div>
                 </div>
               </div>
+              <mat-checkbox (change)="scaleTestingFun($event)" [(ngModel)]="scaleTesting">Scale Testing</mat-checkbox>
             </div>
             <br>
           </div>
@@ -68,7 +69,7 @@
         </div>
         <div class="col-md-10">
           <button class="btnSelect" type="button" mat-button *ngFor="let user of userRoleList"
-                  [ngClass]="checkUserRole(user.name) ? 'pulseTab' : '' " (click)="userRoleListType(user.name)">{{user.name}}</button>
+                  [ngClass]="checkUserRole(user, user.name) ? 'pulseTab' : '' " (click)="userRoleListType(user.name, user)">{{user.name}}</button>
         </div>
       </div>
 

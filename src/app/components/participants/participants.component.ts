@@ -12,11 +12,12 @@ import {NgxSpinnerService} from 'ngx-spinner';
 })
 export class ParticipantsComponent implements OnInit, AfterViewInit {
   @Output() nextStep: EventEmitter<string> = new EventEmitter<string>();
-  userTab = '';
+  scaleTesting = false;
+  userTab: any = '';
   Individual = true;
   userList = [
-    {name: 'Team'},
-    {name: 'Individual'}
+    {name: 'Team', qa: 0, dev: 45, pm: 0, des: 0},
+    {name: 'Individual', qa: 0, dev: 30, pm: 0, des: 0}
   ];
 
   userRole = [];
@@ -33,12 +34,14 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
-    this.userRoleList.push({name: 'Leader'},
-      {name: 'Followers'},
-      {name: 'Group Director'},
-      {name: 'Coach'},
-      {name: 'Facilitator'},
-      {name: 'Reporter'});
+    this.userRoleList.push(
+      {name: 'Leader', qa: 0, dev: 0, pm: 0, des: 0},
+      {name: 'Followers', qa: 0, dev: 180, pm: 0, des: 0},
+      {name: 'Group Director', qa: 30, dev: 30, pm: 0, des: 0},
+      {name: 'Coach', qa: 60, dev: 30, pm: 0, des: 15},
+      {name: 'Facilitator', qa: 60, dev: 30, pm: 0, des: 0},
+      {name: 'Reporter', qa: 60, dev: 30, pm: 0, des: 30}
+      );
 
   }
 
@@ -57,28 +60,62 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
 
   userType(name) {
     this.userTab = name;
-    if (name === 'Individual') {
+    if (this.userTab.name === 'Individual') {
       this.Individual = false;
     } else {
       this.Individual = true;
     }
+    this.commonService.timeEfforts(this.userTab, 'participate', 'userType');
   }
 
-  userRoleListType(name) {
+  userRoleListType(name, obj) {
     const index = this.userRole.indexOf(name);
     if (index === -1) {
       this.userRole.push(name);
+      this.addTimeEfforts(obj, 'add');
     } else {
+      this.addTimeEfforts(obj, 'minus');
       this.userRole.splice(index, 1);
     }
   }
 
-  checkUserRole(name) {
+  checkUserRole(obj, name) {
     if (this.userRole.indexOf(name) !== -1) {
       return true;
     } else {
       return false;
     }
+  }
+
+  addTimeEfforts(obj, type) {
+    if (type === 'add') {
+      this.commonService.participateUserRoleList.push(obj);
+      this.commonService.timeEfforts('', '', '');
+    } else {
+      const index = this.commonService.participateUserRoleList.indexOf(obj);
+      this.commonService.participateUserRoleList.splice(index, 1);
+      this.commonService.timeEfforts('', '', '');
+    }
+  }
+
+  scaleTestingFun(e) {
+    let timeEff = {};
+    if (e.checked) {
+      timeEff = {
+        qa: 2100,
+        dev: 0,
+        pm: 0,
+        des: 0
+      };
+    } else {
+      timeEff = {
+        qa: 0,
+        dev: 0,
+        pm: 0,
+        des: 0
+      };
+    }
+    this.commonService.timeEfforts(timeEff, 'participate', 'scaleTesting');
   }
 
   save() {
@@ -152,7 +189,9 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
         design,
         content,
         structure,
-        score
+        score,
+        timeEfforts: this.commonService.calcObj,
+        participateUserRoleList: this.commonService.participateUserRoleList
       }
     };
     this.spinner.show();
@@ -160,8 +199,8 @@ export class ParticipantsComponent implements OnInit, AfterViewInit {
       const result: any = res;
       if (result.success) {
         this.authService.openSnackBar('Successfully added', true);
-        this.http.getApi('content/' + localStorage.getItem('_id')).subscribe(res => {
-          const ret: any = res;
+        this.http.getApi('content/' + localStorage.getItem('_id')).subscribe(res1 => {
+          const ret: any = res1;
           this.commonService.contentObject = ret.message;
           this.nextStepFun();
         });

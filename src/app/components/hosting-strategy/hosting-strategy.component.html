@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-10">
           <button class="btnSelect" type="button" mat-button *ngFor="let dev of deployement"
-                  [ngClass]="devTab === dev ? 'pulseTab' : '' " (click)="devlopementTab(dev)">{{dev}}</button>
+                  [ngClass]="devTab.name === dev.name ? 'pulseTab' : '' " (click)="devlopementTab(dev)">{{dev.name}}</button>
         </div>
       </div>
       <hr>
@@ -48,7 +48,7 @@
         </div>
         <div class="col-md-10">
           <button class="btnSelect" type="button" mat-button *ngFor="let sign of signType"
-                  [ngClass]="signTab === sign ? 'pulseTab' : '' " (click)="signTabFun(sign)">{{sign}}</button>
+                  [ngClass]="signTab.name === sign.name ? 'pulseTab' : '' " (click)="signTabFun(sign)">{{sign.name}}</button>
         </div>
       </div>
       <hr>

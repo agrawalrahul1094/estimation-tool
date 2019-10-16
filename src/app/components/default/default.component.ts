@@ -18,6 +18,19 @@ export class DefaultComponent implements OnInit {
     this.http.getApi('content/' + localStorage.getItem('_id')).subscribe(res => {
       const ret: any = res;
       this.commonService.contentObject = ret.message;
+      if (ret.message.content.timeEfforts !== undefined) {
+        if (ret.message.content.timeEfforts.basicInfo !== undefined) {
+          this.commonService.calcObj.basicInfo = ret.message.content.timeEfforts.basicInfo;
+        }
+        if (ret.message.content.timeEfforts.hostingStrategy !== undefined) {
+          this.commonService.calcObj.hostingStrategy = ret.message.content.timeEfforts.hostingStrategy;
+        }
+        if (ret.message.content.timeEfforts.participate !== undefined) {
+          this.commonService.calcObj.participate = ret.message.content.timeEfforts.participate;
+          this.commonService.participateUserRoleList = ret.message.content.participateUserRoleList;
+        }
+        this.commonService.getTimeEfforts();
+      }
       this.getData = true;
     });
   }
