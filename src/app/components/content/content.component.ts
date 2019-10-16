@@ -13,11 +13,18 @@ export class ContentComponent implements OnInit, AfterViewInit {
   @Output() nextStep: EventEmitter<string> = new EventEmitter<string>();
   trans = false;
 
-  suppportTab = '';
+  suppportTab: any = '';
   supportList = [
     {name: 'Account Manager to provide'},
     {name: 'Client to provide'},
     {name: 'Digital to Write'},
+  ]
+
+  contentTab: any = '';
+  contentList = [
+    {name: 'Dev. Team'},
+    {name: 'Consultant'},
+    {name: 'Acc. Team'},
   ]
 
   translationTab = '';
@@ -49,6 +56,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
       if (contentData && contentData.content && contentData.content.content) {
           this.suppportTab = contentData.content.content.suppportTab;
           this.translationTab = contentData.content.content.translationTab;
+          this.contentTab = contentData.content.content.contentTab;
           clearInterval(setInt);
       }
     }, 500);
@@ -56,6 +64,45 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
   supportTabFun(t1) {
     this.suppportTab = t1.name;
+    let time = {};
+    if (this.suppportTab === 'Client to provide' || this.suppportTab === 'Digital to Write') {
+      time = {
+        qa: 120,
+        pm: 0,
+        dev: 0,
+        des: 0
+      };
+    } else {
+      time = {
+        qa: 0,
+        pm: 0,
+        dev: 0,
+        des: 0
+      };
+    }
+    this.commonService.devTimeEfforts(time, 'content', 'contentSupport');
+  }
+
+  contentTabFun(t1) {
+    this.contentTab = t1.name;
+    let time = {};
+    if (this.contentTab === 'Dev. Team') {
+      time = {
+        qa: 0,
+        pm: 0,
+        dev: 960,
+        des: 0
+      };
+    } else {
+      time = {
+        qa: 0,
+        pm: 0,
+        dev: 0,
+        des: 0
+      };
+    }
+    console.log(time)
+    this.commonService.devTimeEfforts(time, 'content', 'contentInput');
   }
 
   translationTabFun(t1) {
@@ -103,7 +150,8 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
     const content = {
       suppportTab: this.suppportTab,
-      translationTab: this.translationTab
+      translationTab: this.translationTab,
+      contentTab: this.contentTab
     };
 
     const formData = {
@@ -115,7 +163,10 @@ export class ContentComponent implements OnInit, AfterViewInit {
         design,
         structure,
         content,
-        score
+        score,
+        timeEfforts: this.commonService.calcObj,
+        participateUserRoleList: this.commonService.participateUserRoleList,
+        structureActivitiesList: this.commonService.structureActivitiesList
       }
     };
 

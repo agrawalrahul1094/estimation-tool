@@ -16,20 +16,20 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
   treasuryForm: FormGroup;
   treasuryItems = new FormArray([]);
 
-  devTab = '';
+  devTab: any = {};
   deployement = [
-    'LTI',
-    'Cloud',
-    'Scorm + LMS',
-    'Qkit',
-    'Offline'
+    {name: 'LTI', qa: 40, dev: 240, pm: 0, des: 0},
+    {name: 'Cloud', qa: 20, dev: 240, pm: 0, des: 0},
+    {name: 'Scorm + LMS', qa: 50, dev: 240, pm: 0, des: 0},
+    {name: 'Qkit', qa: 40, dev: 240, pm: 0, des: 0},
+    {name: 'Offline', qa: 15, dev: 240, pm: 0, des: 0}
   ]
 
-  signTab = '';
+  signTab: any = '';
   signType = [
-    'SSO',
-    'Generic',
-    'Self-Registration'
+    {name: 'SSO', qa: 0, dev: 0, pm: 0, des: 30},
+    {name: 'Generic', qa: 0, dev: 0, pm: 0, des: 10},
+    {name: 'Self-Registration', qa: 0, dev: 60, pm: 0, des: 30}
   ];
 
   deliverTab = '';
@@ -57,29 +57,44 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const contentData: any = this.commonService.contentObject;
-    if (contentData && contentData.content && contentData.content.hostingStrategy) {
-      this.devTab = contentData.content.hostingStrategy.devTab;
-      this.signTab = contentData.content.hostingStrategy.signTab;
-      this.deliverTab = contentData.content.hostingStrategy.deliverTab;
-      for (let i = 0; i < contentData.content.hostingStrategy.signInDate.length; i++) {
-        (<FormArray> this.treasuryForm.get('treasuryItems')).push(
-          new FormGroup({
-            date: new FormControl(contentData.content.hostingStrategy.signInDate[i].date, Validators.required),
-            cityName: new FormControl(contentData.content.hostingStrategy.signInDate[i].cityName, Validators.required),
-          })
-        );
+    const setInt = setInterval(() => {
+      if (this.commonService.contentObject) {
+        const contentData: any = this.commonService.contentObject;
+        if (contentData && contentData.content && contentData.content.hostingStrategy) {
+          this.devTab = contentData.content.hostingStrategy.devTab;
+          this.signTab = contentData.content.hostingStrategy.signTab;
+          this.deliverTab = contentData.content.hostingStrategy.deliverTab;
+          for (let i = 0; i < contentData.content.hostingStrategy.signInDate.length; i++) {
+            (<FormArray> this.treasuryForm.get('treasuryItems')).push(
+              new FormGroup({
+                date: new FormControl(contentData.content.hostingStrategy.signInDate[i].date, Validators.required),
+                cityName: new FormControl(contentData.content.hostingStrategy.signInDate[i].cityName, Validators.required),
+              })
+            );
+          }
+        }
+        clearInterval(setInt);
       }
-      this.cdr.detectChanges();
-    }
+    }, 500);
   }
 
   devlopementTab(dev) {
     this.devTab = dev;
+    if (this.devTab.name === 'Scorm + LMS') {
+      this.devTab.dev = 60;
+      this.commonService.timeEfforts(this.devTab, 'hostingStrategy', 'deployement');
+    } else if (this.devTab.name === 'Cloud') {
+      this.devTab.dev = 30;
+      this.commonService.timeEfforts(this.devTab, 'hostingStrategy', 'deployement');
+    } else {
+      this.devTab.dev = 0;
+      this.commonService.timeEfforts(this.devTab, 'hostingStrategy', 'deployement');
+    }
   }
 
   signTabFun(sign) {
     this.signTab = sign;
+    this.commonService.timeEfforts(this.signTab, 'hostingStrategy', 'signUp');
   }
 
   deliverTabFun(del) {
@@ -146,7 +161,7 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
       content: {}
     };
 
-
+    console.log(this.commonService.calcObj)
     formdata.content = {
       basicInfo,
       hostingStrategy,
@@ -154,7 +169,10 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
       design,
       structure,
       content,
-      score
+      score,
+      timeEfforts: this.commonService.calcObj,
+      participateUserRoleList: this.commonService.participateUserRoleList,
+      structureActivitiesList: this.commonService.structureActivitiesList
     };
 
     this.spinner.show();
