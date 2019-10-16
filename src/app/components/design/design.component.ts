@@ -13,7 +13,7 @@ import {FormControl} from '@angular/forms';
 export class DesignComponent implements OnInit, AfterViewInit {
   @Output() nextStep: EventEmitter<string> = new EventEmitter<string>();
   urls = [];
-  brandingTab = 'Default BTS Branding';
+  brandingTab = '';
   brandingList = [
     {name: 'Default BTS Branding'},
     {name: 'Client Branding - Basic'},
@@ -22,11 +22,11 @@ export class DesignComponent implements OnInit, AfterViewInit {
 
   prototypeTab = '';
   prototypeList = [
-    {name: 'Required'},
-    {name: 'Not Required'}
+    {name: 'Required', qa: 0, dev: 0, pm: 0, des: 0},
+    {name: 'Not Required', qa: 0, dev: 0, pm: 0, des: 0}
   ];
 
-  deviceTab = 'All Devices';
+  deviceTab = '';
   deviceList = [
     {name: 'All Devices'},
     {name: 'iPad & Desktop'},
@@ -36,11 +36,11 @@ export class DesignComponent implements OnInit, AfterViewInit {
 
   browserTab = [];
   browserList = [
-    {name: 'Chrome', checked: true},
-    {name: 'Internet Explorer', checked: true},
-    {name: 'Mozilla Firefox', checked: true},
-    {name: 'Edge', checked: true},
-    {name: 'Safari', checked: true},
+    {name: 'Chrome', checked: false},
+    {name: 'Internet Explorer', checked: false},
+    {name: 'Mozilla Firefox', checked: false},
+    {name: 'Edge', checked: false},
+    {name: 'Safari', checked: false},
   ];
 
   clientBrancdCustom = new FormControl('');
@@ -50,7 +50,7 @@ export class DesignComponent implements OnInit, AfterViewInit {
               private authService: AuthService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.browserTab = this.browserList;
+    // this.browserTab = this.browserList;
   }
 
   ngAfterViewInit(): void {
@@ -83,13 +83,51 @@ export class DesignComponent implements OnInit, AfterViewInit {
     this.brandingTab = name.name;
     if (this.brandingTab === 'Client Branding - Custom') {
       this.prototypeTab = 'Required';
+      const time = {
+        dev: 0,
+        des: 960,
+        pm: 0,
+        qa: 0
+      };
+      this.commonService.devTimeEfforts(time, 'design', 'protoType');
     } else {
       this.prototypeTab = '';
+      const time = {
+        dev: 0,
+        des: 0,
+        pm: 0,
+        qa: 0
+      };
+      this.commonService.devTimeEfforts(time, 'design', 'protoType');
     }
   }
 
   protoTypeTabFun(name) {
     this.prototypeTab = name.name;
+    let time = {};
+    if (this.brandingTab === 'Client Branding - Custom') {
+      time = {
+        dev: 0,
+        des: 960,
+        pm: 0,
+        qa: 0
+      };
+    } else if (this.brandingTab === 'Client Branding - Basic') {
+      time = {
+        dev: 0,
+        des: 480,
+        pm: 0,
+        qa: 0
+      };
+    } else {
+      time = {
+        dev: 0,
+        des: 240,
+        pm: 0,
+        qa: 0
+      };
+    }
+    this.commonService.devTimeEfforts(time, 'design', 'protoType');
   }
 
   deviceTabFun(name) {
@@ -101,6 +139,7 @@ export class DesignComponent implements OnInit, AfterViewInit {
         this.browserList[i].checked = true;
         this.browserTab.push(this.browserList[i]);
       }
+      this.setDeviceBasedTimeEffort('all');
     } else if (this.deviceTab === 'iPad & Desktop') {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.browserList.length; i++) {
@@ -111,6 +150,7 @@ export class DesignComponent implements OnInit, AfterViewInit {
           this.browserList[i].checked = false;
         }
        }
+      this.setDeviceBasedTimeEffort('ipad-desktop');
     } else if (this.deviceTab === 'iPad Only') {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.browserList.length; i++) {
@@ -121,6 +161,7 @@ export class DesignComponent implements OnInit, AfterViewInit {
           this.browserList[i].checked = false;
         }
       }
+      this.setDeviceBasedTimeEffort('ipad');
     } else if (this.deviceTab === 'Desktop Only') {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.browserList.length; i++) {
@@ -131,13 +172,60 @@ export class DesignComponent implements OnInit, AfterViewInit {
           this.browserList[i].checked = false;
         }
       }
+      this.setDeviceBasedTimeEffort('desktop');
     }
   }
 
+  setDeviceBasedTimeEffort(type) {
+    let time = {};
+    if (type === 'all') {
+      if (this.brandingTab === 'Client Branding - Custom') {
+        time = {
+          dev: 0,
+          des: 120,
+          pm: 0,
+          qa: 840
+        };
+      } else {
+        time = {
+          dev: 0,
+          des: 420,
+          pm: 0,
+          qa: 840
+        };
+      }
+    } else {
+      if (this.brandingTab === 'Client Branding - Custom') {
+        time = {
+          dev: 0,
+          des: 120,
+          pm: 0,
+          qa: 840
+        };
+      } else if (this.brandingTab === 'Client Branding - Basic') {
+        time = {
+          dev: 0,
+          des: 60,
+          pm: 0,
+          qa: 600
+        };
+      } else {
+        time = {
+          dev: 0,
+          des: 30,
+          pm: 0,
+          qa: 360
+        };
+      }
+    }
+    this.commonService.devTimeEfforts(time, 'design', 'device');
+  }
+
   checkBrowserListType(brow) {
-    const index = this.browserTab.indexOf(brow.name);
+    const checked = this.browserList.map((o) => { return o.name; }).indexOf(brow.name);
+    this.browserList[checked].checked = !this.browserList[checked].checked;
+    const index = this.browserTab.map((o) => { return o.name; }).indexOf(brow.name);
     if (index === -1) {
-      brow.checked = true;
       this.browserTab.push(brow);
     } else {
       this.browserTab.splice(index, 1);
@@ -223,7 +311,10 @@ export class DesignComponent implements OnInit, AfterViewInit {
         design,
         content,
         score,
-        structure
+        structure,
+        timeEfforts: this.commonService.calcObj,
+        participateUserRoleList: this.commonService.participateUserRoleList,
+        structureActivitiesList: this.commonService.structureActivitiesList
       }
     };
 
