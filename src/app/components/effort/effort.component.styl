@@ -1,5 +1,35 @@
-.effort-circle
-    border-radius 50%
-    border 1px solid #CCC
-    background #EEE
-    
+.gif
+    background-image: url("./../../../assets/img/efforts.gif")
+    background-position: center;
+    background-repeat: no-repeat;
+.effort
+    width: 50%;
+    border: 1px solid black;
+    float: left;
+    border-radius: 6px;
+    &-container
+        display flex
+        flex-direction column
+        align-items center
+        justify-content center
+    &-value
+        height: 100px;
+        width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+        border-radius: 50%;
+    &-label
+        text-align: center;
+
+.right-section-container
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .total-effort.col-sm-12
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from 'src/app/shared/common.service';
 
 @Component({
   selector: 'app-effort',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EffortComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private commonService: CommonService,) { }
+  effortsParam: Array<any> = [];
+  totalEffort;
   ngOnInit() {
+    this.effortsParam = [
+      {value: this.commonService.qaTime,
+      label: 'Development'},  
+      {value: this.commonService.pmTime,
+      label: 'Design'},  
+      {value: this.commonService.devTime,
+      label: 'QA'},  
+      {value: this.commonService.desTime,
+      label: 'PM'}
+    ];
+    this.totalEffort = this.commonService.totTime;
   }
 
 }

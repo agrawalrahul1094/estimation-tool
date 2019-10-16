@@ -1,52 +1,50 @@
-<mat-card>
-  <div class="col-6">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <mat-card>
-            <div class="text-center">
-              <div class="effort-circle">
-                50
+<div class="wrapper">
+  <div class="container">
+    <mat-card class="gif">
+      <div class="row effort-wrapper">
+        <div class="col-sm-6 left-section">
+          <div class="row efforts-container">
+            <div class="efforts col-sm-12">
+              <div class="effort" *ngFor="let effort of effortsParam; let i= index">
+                <mat-card class="effort-container">
+                  <div class="effort-value">
+                    {{effort.value}}
+                  </div>
+                  <div class="effort-label">
+                    {{effort.label}}
+                  </div>
+                </mat-card>
               </div>
-              <h4>Devlopement</h4>
             </div>
-          </mat-card>
+          </div>
         </div>
-        <div class="col">
-          <mat-card>
-            <div class="text-center">
-              <div class="effort-circle">
-                50
+        <div class="col-sm-6 right-section">
+          <div class="row right-section-container">
+            <div class="col-sm-12 effort-label">
+              Total Efforts for this project
+            </div>
+            <div class="total-effort col-sm-12">
+              <div class="effort-value">
+                {{commonService.totTime}}
+                <br>hours
               </div>
-              <h4>Devlopement</h4>
             </div>
-          </mat-card>
+          </div>
         </div>
-        <div class="w-100"></div>
-        <div class="col">
-          <mat-card>
-            <div class="text-center">
-              <div class="effort-circle">
-                50
-              </div>
-              <h4>QA</h4>
-            </div>
-          </mat-card>
-        </div>
-        <div class="col">
-          <mat-card>
-            <div class="text-center">
-              <div class="effort-circle">
-                50
-              </div>
-              <h4>PM</h4>
-            </div>
-          </mat-card>
-        </div>
+      </div>
+
+    </mat-card>
+
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+          <button mat-raised-button color="primary" class="save col-sm-12">Review Requirements</button>
+      </div>
+      <div class="col-sm-6">
+          <button mat-raised-button color="primary" class="save col-sm-12">Send Project Request</button>
       </div>
     </div>
   </div>
-  <div class="col-6">
 
-  </div>
-</mat-card>
+</div>
