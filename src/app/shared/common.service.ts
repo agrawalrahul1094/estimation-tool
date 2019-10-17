@@ -123,7 +123,7 @@ export class CommonService {
     this.devTime = this.totalDevelopementTimeEfforts();
     this.desTime = this.totalDesigningTimeEfforts();
     this.qaTime = this.totalQaTimeEfforts();
-    this.pmTime = this.totalPmTimeEfforts();
+    this.pmTime = 29.5;
 
     const total = this.devTime + this.desTime + this.qaTime + this.pmTime;
     this.totTime = Number(total.toFixed(2));
