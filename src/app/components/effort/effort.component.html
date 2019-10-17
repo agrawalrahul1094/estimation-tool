@@ -8,7 +8,8 @@
               <div class="effort" *ngFor="let effort of effortsParam; let i= index">
                 <mat-card class="effort-container">
                   <div class="effort-value">
-                    {{effort.value}}
+<!--                    {{effort.value}}-->
+                    {{ effort.value | number : '1.2-2'}}
                   </div>
                   <div class="effort-label">
                     {{effort.label}}

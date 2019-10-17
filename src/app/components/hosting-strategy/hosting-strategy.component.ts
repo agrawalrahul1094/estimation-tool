@@ -199,7 +199,8 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
   onAddItem() {
     (<FormArray> this.treasuryForm.get('treasuryItems')).push(
       new FormGroup({
-        date: new FormControl('', Validators.required)
+        date: new FormControl('', Validators.required),
+        cityName: new FormControl('', Validators.required),
       })
     );
   }

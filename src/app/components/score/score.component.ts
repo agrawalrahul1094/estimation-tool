@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {AuthService} from '../../shared/auth-service.service';
 import {CommonService} from '../../shared/common.service';
@@ -10,7 +10,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
   templateUrl: './score.component.html',
   styleUrls: ['./score.component.styl']
 })
-export class ScoreComponent implements OnInit {
+export class ScoreComponent implements OnInit, AfterViewInit {
   @Output() nextStep: EventEmitter<string> = new EventEmitter<string>();
   numofMetrics = new FormControl('');
   constructor(private authService: AuthService,
@@ -19,6 +19,17 @@ export class ScoreComponent implements OnInit {
               private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    const setInt = setInterval(() => {
+      const contentData: any = this.commonService.contentObject;
+      if (contentData && contentData.content && contentData.content.score) {
+        this.numofMetrics.setValue(contentData.content.score.numofMetrics);
+        clearInterval(setInt);
+      }
+    }, 500);
+
   }
 
   save() {

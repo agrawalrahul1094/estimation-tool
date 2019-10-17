@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpApiService} from '../../shared/http-api.service';
 import {CommonService} from '../../shared/common.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Router} from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -12,7 +13,7 @@ declare var $: any;
 export class DefaultComponent implements OnInit {
   getData = false;
   constructor(private http: HttpApiService, private commonService: CommonService,
-              private spinner: NgxSpinnerService) { }
+              private spinner: NgxSpinnerService, private router: Router) { }
 
   ngOnInit() {
     this.http.getApi('content/' + localStorage.getItem('_id')).subscribe(res => {
@@ -62,10 +63,16 @@ export class DefaultComponent implements OnInit {
   }
 
   nextStep(e) {
-    this.spinner.hide();
-    this.commonService.stage = Number(e);
-    this.commonService.stageActive = Number(e);
-    this.commonService.stageAvailable = this.commonService.stageAvailable < this.commonService.stage ? this.commonService.stage : this.commonService.stageAvailable;
+    if (Number(e) === 8) {
+      this.spinner.hide();
+      this.router.navigate(['/efforts']);
+    } else {
+      this.spinner.hide();
+      this.commonService.stage = Number(e);
+      this.commonService.stageActive = Number(e);
+      this.commonService.stageAvailable = this.commonService.stageAvailable < this.commonService.stage ? this.commonService.stage : this.commonService.stageAvailable;
+    }
+
     // setTimeout(() => {
     //   this.moveScroll(e);
     // }, 1000);
