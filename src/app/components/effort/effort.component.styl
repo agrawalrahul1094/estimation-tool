@@ -2,6 +2,8 @@
     background-image: url("./../../../assets/img/efforts.gif")
     background-position: center;
     background-repeat: no-repeat;
+.wrapper
+    height 100%
 .effort
     width: 50%;
     border: 1px solid rgba(208, 208, 207, 1);
@@ -21,6 +23,7 @@
         border: 1px solid #dcdcdc;
         border-radius: 50%;
         background-color: #efefef;
+        font-weight: bold
     &-label
         text-align: center;
 
@@ -32,8 +35,10 @@
     color: #ff41a5;
     .effort-label
         margin: 15px 0;
+        font-weight: bold
         .black-color
             color black;
+            font-weight: normal
     .total-effort.col-sm-12
         text-align: center;
         display: flex;
@@ -49,3 +54,11 @@
 .submit-btn
     background: linear-gradient(97.7403411588379deg, rgba(46, 115, 158, 1) 0%, rgba(40, 50, 75, 1) 100%);
     margin: 15px 0;
+
+// @media screen and (min-width:769px)
+@media screen and (max-width:768px)
+    .value-box
+        max-height 80%
+        overflow: auto
+    .submit-btn
+        margin 0

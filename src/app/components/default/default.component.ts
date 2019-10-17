@@ -12,10 +12,14 @@ declare var $: any;
 })
 export class DefaultComponent implements OnInit {
   getData = false;
+  clientName;
+  eventName;
   constructor(private http: HttpApiService, private commonService: CommonService,
               private spinner: NgxSpinnerService, private router: Router) { }
 
   ngOnInit() {
+    this.clientName = localStorage.getItem('clientName');
+    this.eventName = localStorage.getItem('name');
     this.http.getApi('content/' + localStorage.getItem('_id')).subscribe(res => {
       const ret: any = res;
       this.commonService.contentObject = ret.message;

@@ -1,13 +1,14 @@
 <div class="activity-container col-sm-12">
   <!-- <h2>Basic Information</h2> -->
-  <mat-card class="activity-content">
+  <mat-card class="activity-content" *ngIf="!bShowEventDescTemplate">
     <div>
       <div class="row">
         <div class="col-md-2">
           <span>Select Product</span>
         </div>
         <div class="col-md-10">
-          <button class="btnSelect" mat-button *ngFor="let t1 of tab1" [ngClass]="product === t1 ? 'pulseTab' : '' " [disabled]="t1 !== 'Moment Based Simulation'" (click)="currentTab(t1)">{{t1}}</button>
+          <button class="btnSelect" mat-button *ngFor="let t1 of tab1" [ngClass]="product === t1 ? 'pulseTab' : '' "
+            [disabled]="t1 !== 'Moment Based Simulation'" (click)="currentTab(t1)">{{t1}}</button>
         </div>
       </div>
       <hr>
@@ -19,10 +20,8 @@
           <mat-tab-group #tabGroup1 (selectedTabChange)="tabChangedLanguage($event)">
             <mat-tab label="English Only"></mat-tab>
             <mat-tab label="Multilingual">
-              <mat-select class="full-width" multiple
-                          [(ngModel)]="selectedLang"
-                          (selectionChange)="selectLanguage($event)"
-                          name="selectedLang" style="margin-top: 18px;
+              <mat-select class="full-width" multiple [(ngModel)]="selectedLang"
+                (selectionChange)="selectLanguage($event)" name="selectedLang" style="margin-top: 18px;
                                                     border: 1px solid gray;
                                                     border-radius: 2px;
                                                     padding-left: 7px;">
@@ -69,12 +68,43 @@
           <span>Navigation</span>
         </div>
         <div class="col-md-10">
-          <button class="btnSelect" mat-button *ngFor="let nav of navigation" [ngClass]="navTab === nav.name ? 'pulseTab' : '' " (click)="navigationTab(nav)">{{nav.name}}</button>
+          <button class="btnSelect" mat-button *ngFor="let nav of navigation"
+            [ngClass]="navTab === nav.name ? 'pulseTab' : '' " (click)="navigationTab(nav)">{{nav.name}}</button>
         </div>
       </div>
       <hr>
     </div>
 
+  </mat-card>
+  <mat-card class="activity-content event-desc-template-container" *ngIf="bShowEventDescTemplate">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="event-desc-title">
+          <h2>Moment Based Simulation</h2>
+          <h6>This product is built on Pulse platform</h6>
+        </div>
+        <div class="event-desc-content">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida
+            dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque
+            penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra
+            vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et
+            viverra justo commodo. Proin sodales pulvinar tempor.
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="event-desc-btn-container col-sm-12">
+          <div class="img-container">
+            <img src="assets/img/familiarProductBtn.JPG" class="familiar-btn" (click)="familiarWithProduct()">
+          </div>
+          <div class="img-container">
+            <img src="assets/img/moreInfoBtn.JPG" class="more-info-btn">
+          </div>
+        </div>
+      </div>
+    </div>
   </mat-card>
 </div>
 <div class="pull-right">

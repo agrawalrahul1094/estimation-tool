@@ -29,6 +29,7 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
   clientDate = new FormControl();
   pilotDate = new FormControl();
   launchDate = new FormControl();
+  bShowEventDescTemplate = false;
 
 
   tab1 = [
@@ -110,8 +111,13 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
 
   currentTab(name) {
     this.product = name;
+    this.commonService.bShowEventType = true;
+    this.bShowEventDescTemplate = true;
   }
 
+  familiarWithProduct() {
+    this.bShowEventDescTemplate = false;
+  }
 
   tabChangedLanguage = (tabChangeEvent: MatTabChangeEvent): void => {
     this.tabIndexLanguage = tabChangeEvent.index;

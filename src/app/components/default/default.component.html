@@ -1,9 +1,17 @@
 <div *ngIf="getData" class="wrapper row">
   <div [ngSwitch]="commonService.stageActive" class="content-container col-xl-10 col-lg-9 col-md-12 col-sm-12">
     <div class="content-header col-sm-12">
-      <div class="time-container col-sm-12">
+      <!-- <div class="time-container col-sm-12">
         {{commonService.totTime}}
         <br>hours
+      </div> -->
+      <div class="info-container col-sm-12">
+        <div class="client-info col-sm-12">
+          {{clientName}} - {{eventName}}
+        </div>
+        <div class="event-info col-sm-12" *ngIf="commonService.bShowEventType">
+          MBS
+        </div>
       </div>
       <div class="top-bar col-sm-12">
         <h2 class="title">
@@ -28,9 +36,17 @@
     <app-score *ngSwitchCase="7" (nextStep)="nextStep($event)" id="7"></app-score>
   </div>
   <div class="navigation-container col-xl-2 col-lg-3 col-md-12 col-sm-12">
-    <div class="time-container col-sm-12">
+    <!-- <div class="time-container col-sm-12">
       {{commonService.totTime}}
       <br>hours
+    </div> -->
+    <div class="info-container col-sm-12">
+      <div class="client-info col-sm-12">
+        {{clientName}}<br>{{eventName}}
+      </div>
+      <div class="event-info col-sm-12" *ngIf="commonService.bShowEventType">
+        MBS
+      </div>
     </div>
     <div class="nav-menu">
       <ng-container *ngTemplateOutlet="navMenu"></ng-container>

@@ -13,6 +13,7 @@ export class CommonService {
   stage = 1;
   stageAvailable = 1;
   stageActive = 1;
+  bShowEventType: boolean = false;
 
   stageName = [
     'Basic Information',
