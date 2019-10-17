@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpApiService {
-  baseUrl = 'http://localhost:8080/'
+  baseUrl = 'http://localhost:8006/'
   constructor(private http: HttpClient) { }
 
   public getApi(url) {
