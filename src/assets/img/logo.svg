@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="595.28px" height="841.89px" viewBox="0 0 595.28 841.89" enable-background="new 0 0 595.28 841.89" xml:space="preserve">
+<rect x="-15.455" y="253" display="none" fill="#4C4242" width="655" height="481"/>
+<g>
+	<g>
+		<defs>
+			<polygon id="SVGID_1_" points="218.688,476.487 289.045,476.487 289.045,396.088 218.688,396.088 218.688,476.487 			"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  overflow="visible"/>
+		</clipPath>
+		<path clip-path="url(#SVGID_2_)" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M219.351,441.271
+			c0-19.081,15.454-34.55,34.515-34.55s34.515,15.469,34.515,34.55c0,19.083-15.453,34.552-34.515,34.552
+			S219.351,460.354,219.351,441.271L219.351,441.271z"/>
+		
+			<path clip-path="url(#SVGID_2_)" fill="none" stroke="#83184B" stroke-width="0.9134" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+			M219.351,441.271c0-19.081,15.454-34.55,34.515-34.55s34.515,15.469,34.515,34.55c0,19.083-15.453,34.552-34.515,34.552
+			S219.351,460.354,219.351,441.271L219.351,441.271z"/>
+		<g clip-path="url(#SVGID_2_)">
+			<defs>
+				<polygon id="SVGID_3_" points="218.688,476.487 289.045,476.487 289.045,396.088 218.688,396.088 218.688,476.487 				"/>
+			</defs>
+			<clipPath id="SVGID_4_">
+				<use xlink:href="#SVGID_3_"  overflow="visible"/>
+			</clipPath>
+			<g transform="matrix(1 0 0 1 -1.604084e-005 -3.410471e-005)" clip-path="url(#SVGID_4_)">
+				
+					<image overflow="visible" width="170" height="215" xlink:href="A7BE8877.png"  transform="matrix(0.3592 0 0 0.3616 223.5137 396.269)">
+				</image>
+			</g>
+		</g>
+	</g>
+</g>
+<image overflow="visible" width="450" height="150" xlink:href="The Totalizer.png"  transform="matrix(1.3884 0 0 1.3884 -13.9995 337.1108)">
+</image>
+</svg>
