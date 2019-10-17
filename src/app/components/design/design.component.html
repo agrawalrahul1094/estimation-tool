@@ -9,16 +9,16 @@
         <div class="col-md-10" style="height: 217px;">
           <button class="btnSelect" mat-button *ngFor="let t1 of brandingList" [ngClass]="brandingTab === t1.name ? 'pulseTab' : '' " (click)="brandingTabFun(t1)">{{t1.name}}</button>
           <div class="row" *ngIf="!(brandingTab === 'Client Branding - Custom')">
-            <p class="brandingLbl" *ngIf="brandingTab === 'Default BTS Branding'">Solution will we developed with default BTS branding. Client logo can be implemented on request.</p>
-            <p class="brandingLbl" *ngIf="brandingTab === 'Client Branding - Basic'">Solution will we developed with basic elements from client branding. (Logo, Colors, background image, font)</p>
+            <p class="brandingLbl" *ngIf="brandingTab === 'Default BTS Branding'">Solution will be developed with default BTS branding. Client logo can be implemented on request.</p>
+            <p class="brandingLbl" *ngIf="brandingTab === 'Client Branding - Basic'">Solution will be developed with basic elements from client branding. (Logo, Colors, background image, font)</p>
           </div>
           <div class="row" *ngIf="brandingTab === 'Client Branding - Custom'">
               <div class="col-md-8">
                 <div class="row">
-                  <p class="brandingLbl">Solution will we developed with all possible aspects of client branding. Provide branding details</p>
+                  <p class="brandingLbl">Solution will be developed with all possible aspects of client branding. Provide branding details.</p>
                   <p><i>(Link and sign-in details to brand portal, Upload files, other inputs if any)</i></p>
                   <mat-form-field class="no-line">
-                    <textarea matInput placeholder="Enter others Details Here" [formControl]="clientBrancdCustom" rows="3"></textarea>
+                    <textarea matInput placeholder="Enter others Details here" [formControl]="clientBrancdCustom" rows="3"></textarea>
                   </mat-form-field>
                 </div>
               </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-8">
               <mat-form-field class="no-line">
-                <textarea matInput placeholder="Enter additional requirement Here" [formControl]="prototypeAdditional" rows="2"></textarea>
+                <textarea matInput placeholder="Enter additional requirement here" [formControl]="prototypeAdditional" rows="2"></textarea>
               </mat-form-field>
             </div>
           </div>

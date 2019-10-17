@@ -314,7 +314,8 @@ export class DesignComponent implements OnInit, AfterViewInit {
         structure,
         timeEfforts: this.commonService.calcObj,
         participateUserRoleList: this.commonService.participateUserRoleList,
-        structureActivitiesList: this.commonService.structureActivitiesList
+        structureActivitiesList: this.commonService.structureActivitiesList,
+        hostingDeploymentList: this.commonService.hostingDeploymentList
       }
     };
 

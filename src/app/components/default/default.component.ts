@@ -25,6 +25,9 @@ export class DefaultComponent implements OnInit {
         }
         if (ret.message.content.timeEfforts.hostingStrategy !== undefined) {
           this.commonService.calcObj.hostingStrategy = ret.message.content.timeEfforts.hostingStrategy;
+          if (ret.message.content.hostingDeploymentList !== undefined) {
+            this.commonService.hostingDeploymentList = ret.message.content.hostingDeploymentList;
+          }
         }
         if (ret.message.content.timeEfforts.participate !== undefined) {
           this.commonService.calcObj.participate = ret.message.content.timeEfforts.participate;
@@ -41,9 +44,9 @@ export class DefaultComponent implements OnInit {
             this.commonService.structureActivitiesList = ret.message.content.structureActivitiesList;
           }
         }
-        if (ret.message.content.timeEfforts.content !== undefined) {
-          this.commonService.calcObj.content = ret.message.content.timeEfforts.content;
-        }
+      //   if (ret.message.content.timeEfforts.content !== undefined) {
+      //     this.commonService.calcObj.content = ret.message.content.timeEfforts.content;
+      //   }
         this.commonService.getTimeEfforts();
       }
       this.getData = true;

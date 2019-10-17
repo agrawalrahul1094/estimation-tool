@@ -33,7 +33,7 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
 
   tab1 = [
     'Moment Based Simulation',
-    'Know the Buiseness',
+    'Know the Business',
     'Cascade',
     'Moment based Assessment',
     'iLeads',
@@ -41,14 +41,14 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
     'Virtual Assessment',
     'Practice with an Expert',
     'Sales Accelerator',
-    'Portait',
+    'Portrait',
     'Upskill',
     'Live Webcast',
-    'Strategy Slim',
+    'Strategy Sim',
     'BA - 1',
     'BA - 2',
-    'Winning in Buiseness',
-    'Wib Lite',
+    'Winning in Business',
+    'WIB Lite',
     'What a Day'
   ];
 
@@ -56,7 +56,7 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
     {lang: 'English', checked: true, qa: 0, dev: 240, pm: 0, des: 0},
     {lang: 'Chinese', checked: true, qa: 0, dev: 240, pm: 0, des: 0},
     {lang: 'Spanish', checked: true, qa: 0, dev: 240, pm: 0, des: 0},
-    {lang: 'Potuguese', checked: true, qa: 0, dev: 240, pm: 0, des: 0},
+    {lang: 'Portuguese', checked: true, qa: 0, dev: 240, pm: 0, des: 0},
     {lang: 'Russian', checked: true, qa: 0, dev: 240, pm: 0, des: 0}
   ];
   navigation = [
@@ -131,6 +131,7 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
   navigationTab(nav) {
     this.commonService.timeEfforts(nav, 'basicInfo', 'navigate');
     this.navTab = nav.name;
+    console.log(this.navTab)
   }
 
   save() {
@@ -199,7 +200,8 @@ export class BasicInfoComponent implements OnInit, AfterViewInit {
       score,
       timeEfforts: this.commonService.calcObj,
       participateUserRoleList: this.commonService.participateUserRoleList,
-      structureActivitiesList: this.commonService.structureActivitiesList
+      structureActivitiesList: this.commonService.structureActivitiesList,
+      hostingDeploymentList: this.commonService.hostingDeploymentList
     }
     this.spinner.show();
     this.http.postApi('content', formdata).subscribe(res => {

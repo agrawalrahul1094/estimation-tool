@@ -32,6 +32,7 @@ export class CommonService {
   // @ts-ignore
   public participateUserRoleList: Array[] = [];
   structureActivitiesList = [];
+  hostingDeploymentList = [];
 
   calcObj = {
     basicInfo: {
@@ -49,12 +50,12 @@ export class CommonService {
       }
     },
     hostingStrategy: {
-      deployement: {
-        qa: 0,
-        dev: 0,
-        pm: 0,
-        des: 0
-      },
+      // deployement: {
+      //   qa: 0,
+      //   dev: 0,
+      //   pm: 0,
+      //   des: 0
+      // },
       signUp: {
         qa: 0,
         dev: 0,
@@ -157,26 +158,27 @@ export class CommonService {
         this.calcObj.basicInfo.multiLang.pm = 0;
       }
     } else if (type === 'hostingStrategy') {
-      if (module === 'deployement') {
+      // if (module === 'deployement') {
+      //   devHrs = Number(time.dev / 60);
+      //   desHrs = Number(time.des / 60);
+      //   qaHrs = Number(time.qa / 60);
+      //   pmHrs = Number(time.pm / 60);
+      //
+      //   this.calcObj.hostingStrategy.deployement.dev = devHrs;
+      //   this.calcObj.hostingStrategy.deployement.des = desHrs;
+      //   this.calcObj.hostingStrategy.deployement.qa = qaHrs;
+      //   this.calcObj.hostingStrategy.deployement.pm = pmHrs;
+      // } else
+        if (module === 'signUp') {
         devHrs = Number(time.dev / 60);
         desHrs = Number(time.des / 60);
         qaHrs = Number(time.qa / 60);
         pmHrs = Number(time.pm / 60);
 
-        this.calcObj.hostingStrategy.deployement.dev = devHrs;
-        this.calcObj.hostingStrategy.deployement.des = desHrs;
-        this.calcObj.hostingStrategy.deployement.qa = qaHrs;
-        this.calcObj.hostingStrategy.deployement.pm = pmHrs;
-      } else if (module === 'signUp') {
-        devHrs = Number(time.dev / 60);
-        desHrs = Number(time.des / 60);
-        qaHrs = Number(time.qa / 60);
-        pmHrs = Number(time.pm / 60);
-
-        this.calcObj.hostingStrategy.deployement.dev = devHrs;
-        this.calcObj.hostingStrategy.deployement.des = desHrs;
-        this.calcObj.hostingStrategy.deployement.qa = qaHrs;
-        this.calcObj.hostingStrategy.deployement.pm = pmHrs;
+        this.calcObj.hostingStrategy.signUp.dev = devHrs;
+        this.calcObj.hostingStrategy.signUp.des = desHrs;
+        this.calcObj.hostingStrategy.signUp.qa = qaHrs;
+        this.calcObj.hostingStrategy.signUp.pm = pmHrs;
       }
     } else if (type === 'participate') {
       if (module === 'userType') {
@@ -242,45 +244,48 @@ export class CommonService {
   totalDevelopementTimeEfforts() {
     const getParticipateUserRoleList = this.getParticipateUserRoleList('dev');
     const structureActivitiesList = this.structureActivitiesListFunc('dev');
+    const hostingDeploymentList = this.hostingDeploymentListFun('dev');
     const dev = this.calcObj.basicInfo.navigate.dev +
       this.calcObj.basicInfo.multiLang.dev +
-      this.calcObj.hostingStrategy.deployement.dev +
+      // this.calcObj.hostingStrategy.deployement.dev +
       this.calcObj.hostingStrategy.signUp.dev +
       this.calcObj.participate.userType.dev +
       this.calcObj.participate.scaleTesting.dev + getParticipateUserRoleList +
       this.calcObj.design.protoType.dev + structureActivitiesList +
       this.calcObj.design.device.dev +
       this.calcObj.content.contentSupport.dev +
-      this.calcObj.content.contentInput.dev;
+      this.calcObj.content.contentInput.dev + hostingDeploymentList;
     return dev;
   }
 
   totalDesigningTimeEfforts() {
     const getParticipateUserRoleList = this.getParticipateUserRoleList('des');
     const structureActivitiesList = this.structureActivitiesListFunc('des');
+    const hostingDeploymentList = this.hostingDeploymentListFun('des');
     const des = this.calcObj.basicInfo.navigate.des +
       this.calcObj.basicInfo.multiLang.des +
-      this.calcObj.hostingStrategy.deployement.des +
+      // this.calcObj.hostingStrategy.deployement.des +
       this.calcObj.hostingStrategy.signUp.des +
       this.calcObj.participate.userType.des +
       this.calcObj.participate.scaleTesting.des + getParticipateUserRoleList +
       this.calcObj.design.protoType.des + structureActivitiesList +
-      this.calcObj.design.device.des +
-      this.calcObj.content.contentSupport.des;
+      this.calcObj.design.device.des + hostingDeploymentList +
+      this.calcObj.content.contentSupport.des ;
     return des;
   }
 
   totalQaTimeEfforts() {
     const getParticipateUserRoleList = this.getParticipateUserRoleList('qa');
     const structureActivitiesList = this.structureActivitiesListFunc('qa');
+    const hostingDeploymentList = this.hostingDeploymentListFun('des');
     const qa = this.calcObj.basicInfo.navigate.qa +
       this.calcObj.basicInfo.multiLang.qa +
-      this.calcObj.hostingStrategy.deployement.qa +
+      // this.calcObj.hostingStrategy.deployement.qa +
       this.calcObj.hostingStrategy.signUp.qa +
       this.calcObj.participate.userType.qa +
       this.calcObj.participate.scaleTesting.qa + getParticipateUserRoleList +
       this.calcObj.design.protoType.qa + structureActivitiesList +
-      this.calcObj.design.device.qa +
+      this.calcObj.design.device.qa + hostingDeploymentList +
       this.calcObj.content.contentSupport.qa;
     return qa;
   }
@@ -288,14 +293,15 @@ export class CommonService {
   totalPmTimeEfforts() {
     const getParticipateUserRoleList = this.getParticipateUserRoleList('pm');
     const structureActivitiesList = this.structureActivitiesListFunc('pm');
+    const hostingDeploymentList = this.hostingDeploymentListFun('des');
     const pm = this.calcObj.basicInfo.navigate.pm +
       this.calcObj.basicInfo.multiLang.pm +
-      this.calcObj.hostingStrategy.deployement.pm +
+      // this.calcObj.hostingStrategy.deployement.pm +
       this.calcObj.hostingStrategy.signUp.pm +
       this.calcObj.participate.userType.pm +
       this.calcObj.participate.scaleTesting.pm + getParticipateUserRoleList +
       this.calcObj.design.protoType.pm + structureActivitiesList +
-      this.calcObj.design.device.pm +
+      this.calcObj.design.device.pm + hostingDeploymentList +
       this.calcObj.content.contentSupport.pm;
     return pm;
   }
@@ -373,7 +379,7 @@ export class CommonService {
         }
         return Number(devstructureActivitiesList + res + feed);
       } else if (type === 'qa') {
-        let devstructureActivitiesList = 0;
+        devstructureActivitiesList = 0;
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.structureActivitiesList.length; i++) {
           devstructureActivitiesList = this.structureActivitiesList[i].qa + devstructureActivitiesList;
@@ -383,7 +389,7 @@ export class CommonService {
         }
         return devstructureActivitiesList;
       } else if (type === 'pm') {
-        let devstructureActivitiesList = 0;
+        devstructureActivitiesList = 0;
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.structureActivitiesList.length; i++) {
           devstructureActivitiesList = this.structureActivitiesList[i].pm + devstructureActivitiesList;
@@ -393,11 +399,11 @@ export class CommonService {
         }
         return devstructureActivitiesList;
       } else if (type === 'des') {
-        let devstructureActivitiesList = 0;
+        devstructureActivitiesList = 0;
         const contentObj: any = this.contentObject;
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.structureActivitiesList.length; i++) {
-          if (contentObj.content.design.brandingTab === 'Default BTS Branding') {
+          if (contentObj.content.design && contentObj.content.design.brandingTab === 'Default BTS Branding') {
             if (this.structureActivitiesList[i].name === 'Identifier' ||
               this.structureActivitiesList[i].name === 'Idea hunt' ||
               this.structureActivitiesList[i].name === 'Video hunt' ||
@@ -411,7 +417,7 @@ export class CommonService {
               devstructureActivitiesList = 15 + devstructureActivitiesList;
             }
           }
-          if (contentObj.content.design.brandingTab === 'Client Branding - Basic') {
+          if (contentObj.content.design && contentObj.content.design.brandingTab === 'Client Branding - Basic') {
             if (this.structureActivitiesList[i].name === 'Identifier' ||
               this.structureActivitiesList[i].name === 'Carousel' ||
               this.structureActivitiesList[i].name === 'Team Info') {
@@ -434,7 +440,7 @@ export class CommonService {
               devstructureActivitiesList = 15 + devstructureActivitiesList;
             }
           }
-          if (contentObj.content.design.brandingTab === 'Client Branding - Custom') {
+          if (contentObj.content.design && contentObj.content.design.brandingTab === 'Client Branding - Custom') {
             if (this.structureActivitiesList[i].name === 'Identifier') {
               devstructureActivitiesList = 120 + devstructureActivitiesList;
             }
@@ -469,6 +475,60 @@ export class CommonService {
       }
     } else {
       return devstructureActivitiesList;
+    }
+  }
+
+  hostingDeploymentListFun(type) {
+    if (type === 'dev') {
+      let devhostingDeploymentList = 0;
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.hostingDeploymentList.length; i++) {
+
+        devhostingDeploymentList = this.hostingDeploymentList[i].dev + devhostingDeploymentList;
+      }
+      if (devhostingDeploymentList > 0) {
+        devhostingDeploymentList = (devhostingDeploymentList / 60);
+      }
+      return Number(devhostingDeploymentList);
+    }
+
+    if (type === 'des') {
+      let deshostingDeploymentList = 0;
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.hostingDeploymentList.length; i++) {
+
+        deshostingDeploymentList = this.hostingDeploymentList[i].des + deshostingDeploymentList;
+      }
+      if (deshostingDeploymentList > 0) {
+        deshostingDeploymentList = (deshostingDeploymentList / 60);
+      }
+      return Number(deshostingDeploymentList);
+    }
+
+    if (type === 'qa') {
+      let qahostingDeploymentList = 0;
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.hostingDeploymentList.length; i++) {
+
+        qahostingDeploymentList = this.hostingDeploymentList[i].qa + qahostingDeploymentList;
+      }
+      if (qahostingDeploymentList > 0) {
+        qahostingDeploymentList = (qahostingDeploymentList / 60);
+      }
+      return Number(qahostingDeploymentList);
+    }
+
+    if (type === 'pm') {
+      let pmhostingDeploymentList = 0;
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.hostingDeploymentList.length; i++) {
+
+        pmhostingDeploymentList = this.hostingDeploymentList[i].pm + pmhostingDeploymentList;
+      }
+      if (pmhostingDeploymentList > 0) {
+        pmhostingDeploymentList = (pmhostingDeploymentList / 60);
+      }
+      return Number(pmhostingDeploymentList);
     }
   }
 

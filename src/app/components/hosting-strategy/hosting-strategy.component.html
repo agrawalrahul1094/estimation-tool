@@ -4,14 +4,38 @@
     <mat-card class="activity-content">
       <div class="row">
         <div class="col-md-2">
-          <span>Deployment</span>
+          <span>Delivery Type</span>
         </div>
         <div class="col-md-10">
-          <button class="btnSelect" type="button" mat-button *ngFor="let dev of deployement"
-                  [ngClass]="devTab.name === dev.name ? 'pulseTab' : '' " (click)="devlopementTab(dev)">{{dev.name}}</button>
+          <button class="btnSelect" type="button" mat-button *ngFor="let del of deliverList"
+                  [ngClass]="deliverTab === del ? 'pulseTab' : '' " (click)="deliverTabFun(del)">{{del}}</button>
         </div>
       </div>
       <hr>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span>Deployment</span>
+        </div>
+        <div class="col-md-10">
+          <div *ngFor="let dev of deployement">
+            <button *ngIf="dev.deliverTab === deliverTab" class="btnSelect" type="button" mat-button
+                    [ngClass]="dev.checked ? 'pulseTab' : '' " (click)="devlopementTab(dev)">{{dev.name}}</button>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+<!--      <div class="row">-->
+<!--        <div class="col-md-2">-->
+<!--          <span>Sign Type</span>-->
+<!--        </div>-->
+<!--        <div class="col-md-10">-->
+<!--          <button class="btnSelect" type="button" mat-button *ngFor="let sign of signType"-->
+<!--                  [ngClass]="signTab.name === sign.name ? 'pulseTab' : '' " (click)="signTabFun(sign)">{{sign.name}}</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <hr>-->
 
       <div class="row">
         <div class="col-md-2">
@@ -42,27 +66,9 @@
       </div>
       <hr>
 
-      <div class="row">
-        <div class="col-md-2">
-          <span>Sign Type</span>
-        </div>
-        <div class="col-md-10">
-          <button class="btnSelect" type="button" mat-button *ngFor="let sign of signType"
-                  [ngClass]="signTab.name === sign.name ? 'pulseTab' : '' " (click)="signTabFun(sign)">{{sign.name}}</button>
-        </div>
-      </div>
-      <hr>
 
-      <div class="row">
-        <div class="col-md-2">
-          <span>Delivery Type</span>
-        </div>
-        <div class="col-md-10">
-          <button class="btnSelect" type="button" mat-button *ngFor="let del of deliverList"
-                  [ngClass]="deliverTab === del ? 'pulseTab' : '' " (click)="deliverTabFun(del)">{{del}}</button>
-        </div>
-      </div>
-      <hr>
+
+
     </mat-card>
   </div>
   <div class="pull-right">

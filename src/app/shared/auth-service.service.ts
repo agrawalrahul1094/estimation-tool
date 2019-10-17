@@ -6,7 +6,7 @@ import {MatSnackBar} from '@angular/material';
   providedIn: 'root'
 })
 export class AuthService {
-  durationInSeconds = 3;
+  durationInSeconds = 300;
   constructor(private snackBar: MatSnackBar) { }
 
   loggedIn() {

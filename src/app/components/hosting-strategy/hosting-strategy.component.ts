@@ -16,21 +16,23 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
   treasuryForm: FormGroup;
   treasuryItems = new FormArray([]);
 
-  devTab: any = {};
+  devTab: any = [];
   deployement = [
-    {name: 'LTI', qa: 40, dev: 240, pm: 0, des: 0},
-    {name: 'Cloud', qa: 20, dev: 240, pm: 0, des: 0},
-    {name: 'Scorm + LMS', qa: 50, dev: 240, pm: 0, des: 0},
-    {name: 'Qkit', qa: 40, dev: 240, pm: 0, des: 0},
-    {name: 'Offline', qa: 15, dev: 240, pm: 0, des: 0}
+    {name: 'Pre-Registration', deliverTab: 'Virtual', qa: 50, dev: 240, pm: 0, des: 0, checked: false},
+    {name: 'Self-Registration', deliverTab: 'Virtual', qa: 50, dev: 240, pm: 0, des: 0, checked: false},
+    {name: 'Scorm + LMS', deliverTab: 'Virtual', qa: 50, dev: 240, pm: 0, des: 0, checked: false},
+    {name: 'LTI', deliverTab: 'Virtual', qa: 40, dev: 240, pm: 0, des: 0, checked: false},
+    {name: 'SSO', deliverTab: 'Virtual', qa: 50, dev: 240, pm: 0, des: 0, checked: false},
+    {name: 'Qkit', qa: 40, deliverTab: 'Workshop', dev: 240, pm: 0, des: 0, checked: false},
+    {name: 'Local Server', deliverTab: 'Workshop', qa: 15, dev: 240, pm: 0, des: 0, checked: false}
   ]
 
-  signTab: any = '';
-  signType = [
-    {name: 'SSO', qa: 0, dev: 0, pm: 0, des: 30},
-    {name: 'Generic', qa: 0, dev: 0, pm: 0, des: 10},
-    {name: 'Self-Registration', qa: 0, dev: 60, pm: 0, des: 30}
-  ];
+  // signTab: any = '';
+  // signType = [
+  //   {name: 'SSO', qa: 0, dev: 0, pm: 0, des: 30},
+  //   {name: 'Generic', qa: 0, dev: 0, pm: 0, des: 10},
+  //   {name: 'Self-Registration', qa: 0, dev: 60, pm: 0, des: 30}
+  // ];
 
   deliverTab = '';
   deliverList = ['Virtual', 'Workshop'];
@@ -46,7 +48,8 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
     });
 
     const contentData: any = this.commonService.contentObject;
-    if (contentData.content.hostingStrategy === undefined) {
+    console.log(contentData.content)
+    if (contentData.content && contentData.content.hostingStrategy === undefined) {
       (<FormArray> this.treasuryForm.get('treasuryItems')).push(
         new FormGroup({
           date: new FormControl('', Validators.required),
@@ -62,7 +65,19 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
         const contentData: any = this.commonService.contentObject;
         if (contentData && contentData.content && contentData.content.hostingStrategy) {
           this.devTab = contentData.content.hostingStrategy.devTab;
-          this.signTab = contentData.content.hostingStrategy.signTab;
+          this.commonService.hostingDeploymentList = contentData.content.hostingStrategy.devTab;
+          // tslint:disable-next-line:prefer-for-of
+          for (let i = 0; i < this.deployement.length; i ++) {
+            const checked = this.devTab.map((o) => { return o.name; }).indexOf(this.deployement[i].name);
+            if (checked === -1) {
+              this.deployement[i].checked = false;
+            } else {
+              this.deployement[i].checked = true;
+            }
+          }
+
+
+
           this.deliverTab = contentData.content.hostingStrategy.deliverTab;
           for (let i = 0; i < contentData.content.hostingStrategy.signInDate.length; i++) {
             (<FormArray> this.treasuryForm.get('treasuryItems')).push(
@@ -79,22 +94,28 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
   }
 
   devlopementTab(dev) {
-    this.devTab = dev;
-    if (this.devTab.name === 'Scorm + LMS') {
-      this.devTab.dev = 60;
-      this.commonService.timeEfforts(this.devTab, 'hostingStrategy', 'deployement');
-    } else if (this.devTab.name === 'Cloud') {
-      this.devTab.dev = 30;
-      this.commonService.timeEfforts(this.devTab, 'hostingStrategy', 'deployement');
-    } else {
-      this.devTab.dev = 0;
-      this.commonService.timeEfforts(this.devTab, 'hostingStrategy', 'deployement');
-    }
-  }
+    const index = this.deployement.map((o) => { return o.name; }).indexOf(dev.name);
+    this.deployement[index].checked = !this.deployement[index].checked;
 
-  signTabFun(sign) {
-    this.signTab = sign;
-    this.commonService.timeEfforts(this.signTab, 'hostingStrategy', 'signUp');
+    const checked = this.devTab.map((o) => { return o.name; }).indexOf(dev.name);
+    if (checked === -1) {
+      this.devTab.push(dev);
+    } else {
+      this.devTab.splice(checked, 1);
+    }
+    this.commonService.hostingDeploymentList = this.devTab;
+    this.commonService.timeEfforts('', '', '');
+    // this.devTab = dev;
+    // if (this.devTab.name === 'Scorm + LMS') {
+    //   this.devTab.dev = 60;
+    //   this.commonService.timeEfforts(this.devTab, 'hostingStrategy', 'deployement');
+    // } else if (this.devTab.name === 'Cloud') {
+    //   this.devTab.dev = 30;
+    //   this.commonService.timeEfforts(this.devTab, 'hostingStrategy', 'deployement');
+    // } else {
+    //   this.devTab.dev = 0;
+    //   this.commonService.timeEfforts(this.devTab, 'hostingStrategy', 'deployement');
+    // }
   }
 
   deliverTabFun(del) {
@@ -106,26 +127,26 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
   }
 
   save(formData) {
-    if (formData.treasuryItems.length === 0) {
-      this.authService.openSnackBar('Please select altreast session / roll-outs date', false);
-      return false;
-    }
-    if (this.devTab === '') {
-      this.authService.openSnackBar('Please select develepement type', false);
-      return false;
-    }
-    if (this.signTab === '') {
-      this.authService.openSnackBar('Please select sign-in type', false);
-      return false;
-    }
     if (this.deliverTab === '') {
       this.authService.openSnackBar('Please select delivery type', false);
       return false;
     }
+    if (formData.treasuryItems.length === 0) {
+      this.authService.openSnackBar('Please select altreast session / roll-outs date', false);
+      return false;
+    }
+    if (this.devTab.length === 0) {
+      this.authService.openSnackBar('Please select develepement type', false);
+      return false;
+    }
+      // if (this.signTab === '') {
+      //   this.authService.openSnackBar('Please select sign-in type', false);
+      //   return false;
+      // }
+
 
     const hostingStrategy = {
       devTab: this.devTab,
-      signTab: this.signTab,
       deliverTab: this.deliverTab,
       signInDate: formData.treasuryItems
     };
@@ -161,7 +182,6 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
       content: {}
     };
 
-    console.log(this.commonService.calcObj)
     formdata.content = {
       basicInfo,
       hostingStrategy,
@@ -172,7 +192,8 @@ export class HostingStrategyComponent implements OnInit, AfterViewInit {
       score,
       timeEfforts: this.commonService.calcObj,
       participateUserRoleList: this.commonService.participateUserRoleList,
-      structureActivitiesList: this.commonService.structureActivitiesList
+      structureActivitiesList: this.commonService.structureActivitiesList,
+      hostingDeploymentList: this.commonService.hostingDeploymentList
     };
 
     this.spinner.show();
