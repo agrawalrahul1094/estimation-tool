@@ -26,19 +26,19 @@
             Select the activities and their count
           </div>
           <div class="row">
-            <div class="col-6 leftSide">
+            <div class="col-5 section left-section">
               <div class="row leftColumn" *ngFor="let left of leftColumn; let i = index">
-                <div class="col-md-6 leftHeight">
+                <div class="leftHeight">
                   <button class="btnSelect" mat-button  [ngClass]="left.checked ? 'pulseTab' : '' " (click)="leftColumnTab(left, i)">{{left.name}}</button>
                 </div>
-                <div class="col-md-3 leftHeight" *ngIf="left.checked">
+                <div class="leftHeight" *ngIf="left.checked">
                   <mat-form-field class="no-line">
                     <input matInput type="number" (blur)="onChangeNumber(left, $event, 'left');" [(ngModel)]="left.value" [value]="left.value">
                   </mat-form-field>
                 </div>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-7 section right-section">
               <div class="row" *ngFor="let right of rightColumn; let i = index">
                 <div class="col-md-4 leftHeight">
                   <button class="btnSelect" mat-button  [ngClass]="right.checked ? 'pulseTab' : '' " (click)="rightColumnTab(right, i)">{{right.name}}</button>

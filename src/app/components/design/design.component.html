@@ -6,7 +6,7 @@
         <div class="col-md-2">
           <span>Branding</span>
         </div>
-        <div class="col-md-10" style="height: 217px;">
+        <div class="col-md-10">
           <button class="btnSelect" mat-button *ngFor="let t1 of brandingList" [ngClass]="brandingTab === t1.name ? 'pulseTab' : '' " (click)="brandingTabFun(t1)">{{t1.name}}</button>
           <div class="row" *ngIf="!(brandingTab === 'Client Branding - Custom')">
             <p class="brandingLbl" *ngIf="brandingTab === 'Default BTS Branding'">Solution will be developed with default BTS branding. Client logo can be implemented on request.</p>
