@@ -17,7 +17,7 @@
         <div class="col-md-2">
           <span>Deployment</span>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10 deployment-options">
           <div *ngFor="let dev of deployement">
             <button *ngIf="dev.deliverTab === deliverTab" class="btnSelect" type="button" mat-button
                     [ngClass]="dev.checked ? 'pulseTab' : '' " (click)="devlopementTab(dev)">{{dev.name}}</button>
@@ -60,7 +60,7 @@
                 <button (click)="remove(i)" color="primary" mat-raised-button type="button" >Remove</button>
               </div>
             </div>
-            <button (click)="onAddItem()" color="primary" mat-raised-button type="button" >Add new</button>
+            <button (click)="onAddItem()" color="primary" class="add-new-btn" mat-raised-button type="button" >Add new</button>
           </div>
         </div>
       </div>
