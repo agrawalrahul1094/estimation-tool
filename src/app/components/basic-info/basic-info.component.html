@@ -7,7 +7,7 @@
           <span>Select Product</span>
         </div>
         <div class="col-md-10">
-          <button class="btnSelect" mat-button *ngFor="let t1 of tab1" [ngClass]="product === t1 ? 'pulseTab' : '' " (click)="currentTab(t1)">{{t1}}</button>
+          <button class="btnSelect" mat-button *ngFor="let t1 of tab1" [ngClass]="product === t1 ? 'pulseTab' : '' " [disabled]="t1 !== 'Moment Based Simulation'" (click)="currentTab(t1)">{{t1}}</button>
         </div>
       </div>
       <hr>

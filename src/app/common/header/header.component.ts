@@ -15,6 +15,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.commonService.devTime = 0;
+    this.commonService.desTime = 0;
+    this.commonService.qaTime = 0;
+    this.commonService.pmTime = 0;
+    this.commonService.totTime = 0;
     this.commonService.loginSubject.next(false);
     this.commonService.stageActive = 1;
     localStorage.removeItem('token');
